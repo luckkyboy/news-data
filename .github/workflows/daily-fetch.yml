@@ -1,0 +1,65 @@
+name: daily-fetch
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+on:
+  schedule:
+    - cron: "*/10 16-23,0-2 * * *"
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "Target date in YYYY-MM-DD"
+        required: false
+        type: string
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      WECHAT_TOKEN: ${{ secrets.WECHAT_TOKEN }}
+      WECHAT_COOKIE: ${{ secrets.WECHAT_COOKIE }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e .[dev]
+      - name: Install Playwright browser
+        run: |
+          python -m playwright install --with-deps chromium
+      - name: Run daily fetch job
+        id: run_job
+        env:
+          DATE_INPUT: ${{ github.event.inputs.date }}
+        run: |
+          if [ -n "$DATE_INPUT" ]; then
+            python -m app.entrypoints.run_daily_job --date "$DATE_INPUT"
+          else
+            python -m app.entrypoints.run_daily_job
+          fi
+      - name: Commit and push assets
+        if: steps.run_job.outputs.status != 'skipped'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add static/news static/images
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "actions:news:update ${{ steps.run_job.outputs.target_date }} assets"
+            git push
+          else
+            echo "No changes to publish"
+          fi
+      - name: Write workflow summary
+        if: always()
+        run: |
+          echo "### Daily News Workflow" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "- status: ${{ steps.run_job.outputs.status || 'failed' }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- target_date: ${{ steps.run_job.outputs.target_date || 'unknown' }}" >> "$GITHUB_STEP_SUMMARY"

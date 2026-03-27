@@ -1,0 +1,8 @@
+accounts:
+  - name: "绿健简报NEW"
+    wechat_id: "ghnews"
+    fake_id: "MzI0Njk2NzczOQ=="
+    query: "绿健简报"
+    parser_profile: "greenjian"
+    enabled: true
+    priority: 100
