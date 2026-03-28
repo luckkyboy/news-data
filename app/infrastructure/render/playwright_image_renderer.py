@@ -16,7 +16,7 @@ class PlaywrightImageRenderer:
         Path(__file__).resolve().parent
         / "assets"
         / "fonts"
-        / "MiSans-Bold.otf"
+        / "LXGWWenKaiMono-Medium.ttf"
     )
     _PNG_COLORS = 256
 
@@ -47,9 +47,9 @@ class PlaywrightImageRenderer:
             return ""
         return (
             "@font-face {\n"
-            "  font-family: 'MiSans Bold';\n"
-            f"  src: url('{cls._FONT_FILE.as_uri()}') format('opentype');\n"
-            "  font-weight: 700;\n"
+            "  font-family: 'LXGW WenKai Mono';\n"
+            f"  src: url('{cls._FONT_FILE.as_uri()}') format('truetype');\n"
+            "  font-weight: 500;\n"
             "  font-style: normal;\n"
             "  font-display: swap;\n"
             "}\n"

@@ -96,6 +96,6 @@
 
 ## 致谢
 
-- 感谢小米 MiSans 字体支持
+- 感谢霞鹜文楷字体支持
 - 感谢项目：<https://github.com/wnma3mz/wechat_articles_spider>
 - 感谢项目：<https://github.com/vikiboss/60s-static-host>
