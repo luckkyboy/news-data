@@ -12,6 +12,7 @@ from app.infrastructure.clock import BEIJING_TZ
 from app.infrastructure.config import get_image_base_url, load_accounts
 from app.infrastructure.logging import configure_logging
 from app.infrastructure.parser.wechat_article_parser import WeChatArticleParser
+from app.infrastructure.render import TEMPLATE_PATH
 from app.infrastructure.render.playwright_image_renderer import PlaywrightImageRenderer
 from app.infrastructure.storage.static_assets_repository import StaticAssetsRepositoryImpl
 from app.infrastructure.wechat.mp_client import WeChatMPClient
@@ -41,7 +42,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "--template-path",
         type=Path,
-        default=Path("app/infrastructure/render/template.html"),
+        default=TEMPLATE_PATH,
         help="Path to the image render HTML template",
     )
     return parser.parse_args(argv)

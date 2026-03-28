@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}每日简报{% endblock %}</title>
+    <style>
+      {{ font_face_css | safe }}
+      :root {
+        color-scheme: light;
+        --bg: #eef2f7;
+        --card: #ffffff;
+        --text: #0f172a;
+        --muted: #475569;
+        --muted-strong: #1e293b;
+        --accent: #0ea5e9;
+        --line: #dbe4f0;
+        --hero-meta-size: 27px;
+        --hero-meta-weight: 800;
+        --news-font-size: 30px;
+        --news-item-gap: 8px;
+        --footer-font-size: 24px;
+        --footer-font-weight: 800;
+        --footer-line-height: 1.25;
+        --footer-edge-gap: 6px;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 0;
+        background:
+          radial-gradient(circle at 10% 0%, rgba(14, 165, 233, 0.12), transparent 40%),
+          radial-gradient(circle at 100% 0%, rgba(59, 130, 246, 0.1), transparent 36%),
+          linear-gradient(180deg, #f8fbff 0%, var(--bg) 100%);
+        color: var(--text);
+        font-family: "LXGW WenKai Mono", "PingFang SC", "Noto Sans CJK SC",
+          "Noto Sans SC", "Source Han Sans SC", -apple-system,
+          BlinkMacSystemFont, "Segoe UI", "Hiragino Sans GB", "Microsoft YaHei",
+          sans-serif;
+      }
+      #news-card {
+        width: 1200px;
+        height: 1800px;
+        display: grid;
+        grid-template-rows: 164px minmax(0, 1fr) 176px 81px;
+        background: var(--card);
+        border: 1px solid #d7e3f3;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 24px 70px rgba(15, 23, 42, 0.12);
+      }
+      .hero {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 18px;
+        padding: 0 40px;
+        border-bottom: 1px solid var(--line);
+        background:
+          linear-gradient(92deg, #f8fcff 0%, #f2f7ff 45%, #eef4ff 100%);
+      }
+      .hero-main {
+        min-width: 0;
+        text-align: center;
+      }
+      .brand {
+        margin: 0;
+        letter-spacing: 0.02em;
+        font-size: 70px;
+        font-weight: 800;
+        line-height: 1.05;
+      }
+      .brand-accent {
+        color: var(--accent);
+      }
+      .hero-meta {
+        margin-top: 12px;
+        color: var(--muted);
+        font-size: var(--hero-meta-size);
+        font-weight: var(--hero-meta-weight);
+      }
+      .content {
+        min-height: 0;
+        padding: 8px 34px 10px;
+        overflow: hidden;
+      }
+      ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        counter-reset: brief-item;
+        font-size: var(--news-font-size);
+        line-height: 1.45;
+        font-weight: 700;
+      }
+      li {
+        counter-increment: brief-item;
+        position: relative;
+        margin: 0;
+        padding: 11px 18px 11px 70px;
+        border: 1px solid #dce8f8;
+        background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+        border-radius: 14px;
+      }
+      li::before {
+        content: counter(brief-item, decimal-leading-zero);
+        position: absolute;
+        left: 18px;
+        top: 50%;
+        transform: translateY(-50%);
+        min-width: 36px;
+        padding: 2px 8px;
+        border-radius: 999px;
+        background: #e0f2fe;
+        color: #0369a1;
+        font-size: 18px;
+        font-weight: 800;
+        line-height: 1.4;
+        text-align: center;
+      }
+      li + li {
+        margin-top: var(--news-item-gap);
+      }
+      .quote-zone {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 34px 0;
+        height: 128px;
+        align-self: end;
+        margin-bottom: 8px;
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        background: linear-gradient(180deg, #f8fbff 0%, #f3f8ff 100%);
+      }
+      .quote-text {
+        margin: 0;
+        color: #334155;
+        text-align: center;
+        font-size: 29px;
+        font-weight: 700;
+        line-height: 1.45;
+      }
+      .footer {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        grid-template-areas:
+          "left-top right-top"
+          "left-bottom right-bottom";
+        align-items: center;
+        align-content: start;
+        column-gap: 16px;
+        row-gap: 6px;
+        padding: 10px 34px var(--footer-edge-gap);
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        background: #f8fbff;
+      }
+      .footer-text {
+        color: var(--muted);
+        font-size: var(--footer-font-size);
+        font-weight: var(--footer-font-weight);
+        line-height: var(--footer-line-height);
+      }
+      .footer-text-strong {
+        color: var(--muted-strong);
+      }
+      .footer-left,
+      .footer-right {
+        min-width: 0;
+      }
+      .footer-left {
+        display: contents;
+      }
+      .footer-sources {
+        grid-area: left-top;
+        padding-left: 12px;
+        border-left: 4px solid #7dd3fc;
+      }
+      .footer-meta {
+        grid-area: left-bottom;
+        display: inline-flex;
+        flex-wrap: wrap;
+        gap: 0;
+        padding-left: 12px;
+        border-left: 4px solid #7dd3fc;
+      }
+      .footer-right {
+        display: contents;
+      }
+      .footer-right-top {
+        grid-area: right-top;
+        justify-self: end;
+        text-align: right;
+      }
+      .footer-right-bottom {
+        grid-area: right-bottom;
+        justify-self: end;
+        text-align: right;
+      }
+      @media (max-width: 640px) {
+        body {
+          padding: 0;
+        }
+        .hero {
+          padding: 22px 18px 18px;
+          gap: 12px;
+        }
+        .content {
+          padding: 18px 16px 14px;
+        }
+        .footer {
+          padding: 12px 16px 16px;
+          grid-template-columns: 1fr;
+          grid-template-areas:
+            "left-top"
+            "left-bottom"
+            "right-top"
+            "right-bottom";
+          gap: 8px;
+        }
+        .brand {
+          font-size: 28px;
+        }
+        .hero-meta,
+        .quote-text {
+          font-size: 18px;
+        }
+        ol {
+          font-size: 18px;
+        }
+        li {
+          padding: 10px 10px 10px 52px;
+        }
+        li::before {
+          left: 10px;
+          min-width: 28px;
+          font-size: 14px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    {% block body %}{% endblock %}
+  </body>
+</html>

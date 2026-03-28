@@ -1,14 +1,15 @@
 from __future__ import annotations
 
-import json
 from io import BytesIO
 from pathlib import Path
 from tempfile import NamedTemporaryFile
 
+from jinja2 import Environment, FileSystemLoader, select_autoescape
 from PIL import Image
 from playwright.sync_api import sync_playwright
 
 from app.domain.models import DailyNewsDocument
+from app.infrastructure.render.template_context_builder import DailyNewsTemplateContextBuilder
 
 
 class PlaywrightImageRenderer:
@@ -32,14 +33,16 @@ class PlaywrightImageRenderer:
         self._viewport_width = viewport_width
         self._viewport_height = viewport_height
         self._device_scale_factor = device_scale_factor
+        self._context_builder = DailyNewsTemplateContextBuilder()
+        self._jinja = Environment(
+            loader=FileSystemLoader(str(self._template_path.parent)),
+            autoescape=select_autoescape(enabled_extensions=("html", "xml"), default_for_string=True),
+        )
 
     def build_html(self, document: DailyNewsDocument) -> str:
-        template = self._template_path.read_text(encoding="utf-8")
-        payload = json.dumps(document.model_dump(), ensure_ascii=False)
-        return (
-            template.replace("__FONT_FACE__", self._font_face_css())
-            .replace("__NEWS_DATA__", payload)
-        )
+        template = self._jinja.get_template(self._template_path.name)
+        context = self._context_builder.build(document, font_face_css=self._font_face_css())
+        return template.render(context)
 
     @classmethod
     def _font_face_css(cls) -> str:

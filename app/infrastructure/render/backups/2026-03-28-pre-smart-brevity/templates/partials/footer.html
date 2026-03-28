@@ -1,0 +1,18 @@
+<footer class="footer">
+  <div class="footer-left">
+    <span
+      id="footer-sources"
+      class="footer-sources footer-text footer-text-strong"
+      {% if not source_text %}hidden{% endif %}
+      >{{ source_text }}</span
+    >
+    <div class="footer-meta">
+      <span id="footer-count" class="footer-text">{{ news_count_text }}</span>
+      <span id="footer-updated" class="footer-text">{{ updated_text }}</span>
+    </div>
+  </div>
+  <div class="footer-right">
+    <span class="footer-right-top footer-text">使用霞鹜文楷渲染</span>
+    <span class="footer-right-bottom footer-text footer-text-strong">@Github luckkyboy/news-data</span>
+  </div>
+</footer>

@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}每日简报{% endblock %}</title>
+    <style>
+      {{ font_face_css | safe }}
+      :root {
+        color-scheme: light;
+        --bg: #f5f1e8;
+        --card: #fffdf8;
+        --text: #302822;
+        --muted: #7f756b;
+        --muted-strong: #62584e;
+        --accent: #ef7d00;
+        --line: rgba(48, 40, 34, 0.1);
+        --hero-meta-size: 31px;
+        --hero-meta-weight: 800;
+        --news-font-size: 32px;
+        --news-item-gap: 15px;
+        --footer-font-size: 27px;
+        --footer-font-weight: 800;
+        --footer-line-height: 1.2;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 0;
+        background:
+          radial-gradient(circle at top, rgba(239, 125, 0, 0.08), transparent 36%),
+          linear-gradient(180deg, #fcfaf5 0%, var(--bg) 100%);
+        color: var(--text);
+        font-family: "LXGW WenKai Mono", "PingFang SC", "Noto Sans CJK SC",
+          "Noto Sans SC", "Source Han Sans SC", -apple-system,
+          BlinkMacSystemFont, "Segoe UI", "Hiragino Sans GB", "Microsoft YaHei",
+          sans-serif;
+      }
+      #news-card {
+        width: 1200px;
+        height: 1800px;
+        display: grid;
+        grid-template-rows: 180px 1fr 170px 150px;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 0;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(48, 40, 34, 0.1);
+      }
+      .hero {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 28px;
+        padding: 26px 36px 24px;
+        border-bottom: 1px solid var(--line);
+        background: #f9f4eb;
+      }
+      .hero-main {
+        min-width: 0;
+        text-align: center;
+        position: relative;
+        top: 4px;
+      }
+      .brand {
+        margin: 0;
+        font-size: 74px;
+        font-weight: 800;
+        line-height: 1.1;
+      }
+      .brand-accent {
+        color: var(--accent);
+      }
+      .hero-meta {
+        margin-top: 14px;
+        color: var(--muted);
+        font-size: var(--hero-meta-size);
+        font-weight: var(--hero-meta-weight);
+      }
+      .content {
+        min-height: 0;
+        padding: 32px 42px 18px;
+      }
+      ol {
+        margin: 0;
+        padding-left: 42px;
+        font-size: var(--news-font-size);
+        line-height: 1.5;
+        font-weight: 600;
+      }
+      li + li {
+        margin-top: var(--news-item-gap);
+      }
+      .quote-zone {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 42px;
+        border-top: 1px solid var(--line);
+        background: #f9f4eb;
+        margin-top: 16px;
+      }
+      .quote-text {
+        margin: 0;
+        color: var(--muted);
+        text-align: center;
+        font-size: 31px;
+        font-weight: 700;
+        font-style: italic;
+        line-height: 1.5;
+      }
+      .footer {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        grid-template-areas:
+          "left-top right-top"
+          "left-bottom right-bottom";
+        align-items: end;
+        column-gap: 16px;
+        row-gap: 4px;
+        padding: 14px 36px 30px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+      }
+      .footer-text {
+        color: var(--muted);
+        font-size: var(--footer-font-size);
+        font-weight: var(--footer-font-weight);
+        line-height: var(--footer-line-height);
+      }
+      .footer-text-strong {
+        color: var(--muted-strong);
+      }
+      .footer-left,
+      .footer-right {
+        min-width: 0;
+      }
+      .footer-left {
+        display: contents;
+      }
+      .footer-sources {
+        grid-area: left-top;
+      }
+      .footer-meta {
+        grid-area: left-bottom;
+        display: inline-flex;
+        flex-wrap: wrap;
+        gap: 0;
+      }
+      .footer-right {
+        display: contents;
+      }
+      .footer-right-top {
+        grid-area: right-top;
+        justify-self: end;
+        text-align: right;
+      }
+      .footer-right-bottom {
+        grid-area: right-bottom;
+        justify-self: end;
+        text-align: right;
+      }
+      @media (max-width: 640px) {
+        body {
+          padding: 0;
+        }
+        .hero {
+          padding: 22px 20px 18px;
+          gap: 12px;
+        }
+        .content {
+          padding: 20px 20px 16px;
+        }
+        .footer {
+          padding: 12px 20px 16px;
+          grid-template-columns: 1fr;
+          grid-template-areas:
+            "left-top"
+            "left-bottom"
+            "right-top"
+            "right-bottom";
+          gap: 8px;
+        }
+        .brand {
+          font-size: 28px;
+        }
+        .hero-meta,
+        .quote-text {
+          font-size: 18px;
+        }
+        ol {
+          font-size: 18px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    {% block body %}{% endblock %}
+  </body>
+</html>
