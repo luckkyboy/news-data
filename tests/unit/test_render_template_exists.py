@@ -22,3 +22,19 @@ def test_render_template_partials_exist() -> None:
     assert (root / "partials/content.html").exists()
     assert (root / "partials/quote.html").exists()
     assert (root / "partials/footer.html").exists()
+
+
+def test_base_template_uses_adaptive_height_layout_contract() -> None:
+    base_template = Path(TEMPLATE_PATH).parent / "base.html"
+    content = base_template.read_text(encoding="utf-8")
+    content_section = content.split(".content {", maxsplit=1)[1].split("}", maxsplit=1)[0]
+
+    assert "#news-card {" in content
+    assert "display: flex;" in content
+    assert "flex-direction: column;" in content
+    assert "height: 1800px;" not in content
+    assert "grid-template-rows:" not in content
+    assert ".content {" in content
+    assert "overflow: hidden;" not in content_section
+    assert ".quote-zone {" in content
+    assert "margin-bottom: 8px;" in content
