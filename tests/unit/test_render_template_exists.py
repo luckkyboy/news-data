@@ -28,6 +28,10 @@ def test_base_template_uses_adaptive_height_layout_contract() -> None:
     base_template = Path(TEMPLATE_PATH).parent / "base.html"
     content = base_template.read_text(encoding="utf-8")
     content_section = content.split(".content {", maxsplit=1)[1].split("}", maxsplit=1)[0]
+    quote_zone_section = content.split(".quote-zone {", maxsplit=1)[1].split("}", maxsplit=1)[0]
+    quote_shell_section = content.split(".quote-shell {", maxsplit=1)[1].split("}", maxsplit=1)[0]
+    quote_mark_section = content.split(".quote-mark {", maxsplit=1)[1].split("}", maxsplit=1)[0]
+    quote_text_section = content.split(".quote-text {", maxsplit=1)[1].split("}", maxsplit=1)[0]
 
     assert "#news-card {" in content
     assert "display: flex;" in content
@@ -38,3 +42,9 @@ def test_base_template_uses_adaptive_height_layout_contract() -> None:
     assert "overflow: hidden;" not in content_section
     assert ".quote-zone {" in content
     assert "margin-bottom: 8px;" in content
+    assert "padding: 0 56px 0;" in quote_zone_section
+    assert "position: relative;" in quote_shell_section
+    assert "display: flex;" in quote_shell_section
+    assert "transform: translateY(-50%) skewX(-12deg);" in quote_mark_section
+    assert "max-width: 76%;" in quote_text_section
+    assert "font-style: italic;" in quote_text_section

@@ -99,7 +99,7 @@
         counter-increment: brief-item;
         position: relative;
         margin: 0;
-        padding: 11px 18px 11px 70px;
+        padding: 11px 18px 11px 85px;
         border: 1px solid #dce8f8;
         background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
         border-radius: 14px;
@@ -110,12 +110,12 @@
         left: 18px;
         top: 50%;
         transform: translateY(-50%);
-        min-width: 36px;
-        padding: 2px 8px;
+        min-width: 47px;
+        padding: 3px 10px;
         border-radius: 999px;
         background: #e0f2fe;
         color: #0369a1;
-        font-size: 18px;
+        font-size: 23px;
         font-weight: 800;
         line-height: 1.4;
         text-align: center;
@@ -127,20 +127,44 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 0 34px 0;
+        padding: 0 56px 0;
         height: 128px;
         margin-bottom: 8px;
         border-top: 1px solid var(--line);
         border-bottom: 1px solid var(--line);
         background: linear-gradient(180deg, #f8fbff 0%, #f3f8ff 100%);
       }
+      .quote-shell {
+        position: relative;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .quote-mark {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%) skewX(-12deg);
+        color: #0f766e;
+        font-size: 58px;
+        font-weight: 800;
+        line-height: 1;
+      }
+      .quote-mark-left {
+        left: 58px;
+      }
+      .quote-mark-right {
+        right: 58px;
+      }
       .quote-text {
         margin: 0;
+        max-width: 76%;
         color: #334155;
         text-align: center;
         font-size: 29px;
         font-weight: 700;
         line-height: 1.45;
+        font-style: italic;
       }
       .footer {
         display: grid;

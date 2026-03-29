@@ -1,7 +1,15 @@
 <section class="quote-zone">
   {% if quote_text %}
-  <p id="quote" class="quote-text">『{{ quote_text }}』</p>
+  <div id="quote" class="quote-shell">
+    <span class="quote-mark quote-mark-left" aria-hidden="true">『</span>
+    <p class="quote-text">{{ quote_text }}</p>
+    <span class="quote-mark quote-mark-right" aria-hidden="true">』</span>
+  </div>
   {% else %}
-  <p id="quote" class="quote-text" hidden></p>
+  <div id="quote" class="quote-shell" hidden>
+    <span class="quote-mark quote-mark-left" aria-hidden="true">『</span>
+    <p class="quote-text"></p>
+    <span class="quote-mark quote-mark-right" aria-hidden="true">』</span>
+  </div>
   {% endif %}
 </section>

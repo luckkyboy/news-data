@@ -25,7 +25,10 @@ def test_build_html_injects_document_fields() -> None:
     html = renderer.build_html(document)
 
     assert "<li>第一条</li>" in html
-    assert "『一句话总结』" in html
+    assert '<div id="quote" class="quote-shell">' in html
+    assert '<span class="quote-mark quote-mark-left" aria-hidden="true">『</span>' in html
+    assert '<p class="quote-text">一句话总结</p>' in html
+    assert '<span class="quote-mark quote-mark-right" aria-hidden="true">』</span>' in html
     assert "window.__DATA__ =" not in html
     assert "__NEWS_DATA__" not in html
     assert "2026年3月27日" in html
@@ -83,3 +86,7 @@ def test_build_html_uses_adaptive_card_height_layout() -> None:
     assert "grid-template-rows:" not in html
     assert ".quote-zone {" in html
     assert "margin-bottom: 8px;" in html
+    assert ".quote-shell {" in html
+    assert "position: relative;" in html
+    assert "font-style: italic;" in html
+    assert "transform: translateY(-50%) skewX(-12deg);" in html
