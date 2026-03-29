@@ -12,6 +12,12 @@ def test_daily_fetch_workflow_exists_and_uses_cli_entrypoint() -> None:
     assert "*/10 16-23,0-2 * * *" in content
     assert "workflow_dispatch:" in content
     assert "date:" in content
+    assert 'cache: "pip"' in content
+    assert "cache-dependency-path: pyproject.toml" in content
+    assert "uses: actions/cache@v4" in content
+    assert "id: playwright-cache" in content
+    assert "path: ~/.cache/ms-playwright" in content
+    assert "cache-hit != 'true'" in content
     assert "python -m app.entrypoints.run_daily_job" in content
     assert "id: run_job" in content
     assert "WECHAT_TOKEN" in content
