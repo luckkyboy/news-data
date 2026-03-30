@@ -3,6 +3,14 @@ const state = {
   currentDate: "",
 };
 
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+}
+
 function getItemByDate(date) {
   return state.index.items.find((item) => item.date === date) ?? null;
 }
@@ -17,6 +25,34 @@ function writeUrl(date) {
   const url = new URL(window.location.href);
   url.searchParams.set("date", date);
   window.history.replaceState({}, "", url);
+}
+
+function renderSummary(payload) {
+  const sourceText = Array.isArray(payload.sources) ? payload.sources.join(" / ") : "";
+  const quoteText = payload.quote || "暂无金句";
+
+  document.getElementById("summary-panel").innerHTML = `
+    <div class="summary-header">
+      <p class="eyebrow">Curated Note</p>
+      <h2 class="summary-title">${escapeHtml(payload.title || payload.date || "")}</h2>
+      <div class="summary-meta">发布日期 ${escapeHtml(payload.publish_date || "-")}</div>
+    </div>
+    <div class="summary-quote">${escapeHtml(quoteText)}</div>
+    <div class="summary-list">
+      <div class="summary-item">
+        <div class="summary-label">Date</div>
+        <div class="summary-value">${escapeHtml(payload.date || "-")}</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-label">Sources</div>
+        <div class="summary-value">${escapeHtml(sourceText || "未提供")}</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-label">News Count</div>
+        <div class="summary-value">${Array.isArray(payload.news) ? payload.news.length : 0} 条</div>
+      </div>
+    </div>
+  `;
 }
 
 async function renderDate(date) {
@@ -45,6 +81,7 @@ async function renderDate(date) {
 
   const response = await fetch(item.json_path);
   const payload = await response.json();
+  renderSummary(payload);
   document.getElementById("json-panel").textContent = JSON.stringify(payload, null, 2);
 
   document.querySelectorAll(".date-link").forEach((element) => {
@@ -98,5 +135,9 @@ async function bootstrap() {
 }
 
 bootstrap().catch((error) => {
+  const summary = document.getElementById("summary-panel");
+  if (summary) {
+    summary.innerHTML = `<div class="summary-header"><p class="eyebrow">Error</p><h2 class="summary-title">预览加载失败</h2></div>`;
+  }
   document.getElementById("json-panel").textContent = String(error);
 });

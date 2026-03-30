@@ -7,12 +7,12 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <main class="workspace">
-      <section class="stage">
-        <header class="stage-toolbar">
-          <div class="stage-meta">
-            <p class="eyebrow">正式产物</p>
-            <h2 id="stage-date-label">-</h2>
+    <main class="gallery-shell">
+      <section class="gallery-stage">
+        <header class="stage-header">
+          <div class="stage-kicker">
+            <p class="eyebrow">Gallery Console</p>
+            <h1 id="stage-date-label">-</h1>
           </div>
           <div class="stage-actions">
             <button id="prev-button" type="button">上一天</button>
@@ -23,28 +23,25 @@
         </header>
 
         <div class="stage-frame">
-          <div class="stage-mark" aria-hidden="true">NEWS DATA</div>
+          <div class="stage-badge" aria-hidden="true">NEWS DATA</div>
           <div class="stage-media">
             <img id="preview-image" alt="预览图片" />
           </div>
         </div>
       </section>
 
-      <aside class="inspector">
-        <header class="inspector-head">
-          <p class="eyebrow">JSON Inspector</p>
-          <h2>数据</h2>
-        </header>
-        <div class="inspector-body">
+      <aside class="gallery-info">
+        <section id="summary-panel" class="summary-panel"></section>
+        <details class="raw-json-block" open>
+          <summary>原始 JSON</summary>
           <pre id="json-panel"></pre>
-        </div>
+        </details>
       </aside>
 
-      <aside class="rail">
-        <div class="rail-head">
-          <p class="eyebrow">News Data</p>
-          <h1>Preview Desk</h1>
-          <p id="current-date-label" class="current-date"></p>
+      <aside class="timeline">
+        <div class="timeline-head">
+          <p class="eyebrow">Timeline</p>
+          <p id="current-date-label" class="timeline-current"></p>
         </div>
         <nav id="date-list" class="date-list" aria-label="日期列表"></nav>
       </aside>

@@ -66,10 +66,11 @@ def test_pages_preview_shell_exists() -> None:
     assert 'id="date-list"' in html
     assert 'id="preview-image"' in html
     assert 'id="json-panel"' in html
-    assert 'class="workspace"' in html
-    assert 'class="stage-meta"' in html
+    assert 'class="gallery-shell"' in html
+    assert 'class="timeline"' in html
+    assert 'id="summary-panel"' in html
     assert "new URLSearchParams" in js
-    assert "height: 100dvh;" in css
+    assert "grid-template-areas:" in css
     assert "object-fit: contain;" in css
+    assert "backdrop-filter:" in css
     assert "@media (max-width: 768px)" in css
-    assert "grid-template-rows: minmax(0, 1fr) minmax(160px, 26dvh) auto;" in css
