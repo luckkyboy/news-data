@@ -78,7 +78,9 @@ def test_pages_preview_shell_exists() -> None:
     assert "document.body.dataset.theme" in js
     assert "renderDateList" not in js
     assert "renderSummary" not in js
-    assert "grid-template-columns: minmax(0, 1.55fr) 420px;" in css
+    assert "width: min(calc(100vw - 36px), 1620px);" in css
+    assert "grid-template-columns: minmax(0, 1200px) 384px;" in css
+    assert "justify-content: center;" in css
     assert "object-fit: contain;" in css
     assert 'body[data-theme="warm"] {' in css
     assert "@media (max-width: 768px)" in css

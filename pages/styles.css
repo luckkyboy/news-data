@@ -142,10 +142,13 @@ pre {
 
 .split-shell {
   height: 100dvh;
+  width: min(calc(100vw - 36px), 1620px);
+  margin: 0 auto;
   display: grid;
-  grid-template-columns: minmax(0, 1.55fr) 420px;
+  grid-template-columns: minmax(0, 1200px) 384px;
+  justify-content: center;
   gap: 18px;
-  padding: 18px;
+  padding: 18px 0;
 }
 
 .preview-pane,
@@ -309,6 +312,7 @@ pre {
 
 @media (max-width: 1100px) {
   .split-shell {
+    width: min(calc(100vw - 36px), 100%);
     grid-template-columns: minmax(0, 1fr) 360px;
   }
 
