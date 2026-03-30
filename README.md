@@ -13,6 +13,25 @@ GitHub Pages 预览：
 - `static/news/YYYY-MM-DD.json`
 - `static/images/YYYY-MM-DD.png`
 
+## 数据访问地址
+
+CDN 访问：
+
+- JSON：`https://cdn.jsdelivr.net/gh/luckkyboy/news-data@main/static/news/YYYY-MM-DD.json`
+- 图片：`https://cdn.jsdelivr.net/gh/luckkyboy/news-data@main/static/images/YYYY-MM-DD.png`
+
+原始访问：
+
+- JSON：`https://luckkyboy.github.io/news-data/static/news/YYYY-MM-DD.json`
+- 图片：`https://luckkyboy.github.io/news-data/static/images/YYYY-MM-DD.png`
+
+示例（2026-03-27）：
+
+- CDN JSON：`https://cdn.jsdelivr.net/gh/luckkyboy/news-data@main/static/news/2026-03-27.json`
+- CDN 图片：`https://cdn.jsdelivr.net/gh/luckkyboy/news-data@main/static/images/2026-03-27.png`
+- 原始 JSON：`https://luckkyboy.github.io/news-data/static/news/2026-03-27.json`
+- 原始图片：`https://luckkyboy.github.io/news-data/static/images/2026-03-27.png`
+
 ## 项目结构
 
 核心目录如下：
@@ -67,21 +86,6 @@ GitHub Pages 预览：
 `python -m app.entrypoints.preview_render --json-path static/news/2026-03-30.json --output /tmp/preview.png`
 
 `uv run --project . python -m app.entrypoints.preview_render --json-path static/news/2026-03-30.json --output static/images/preview.png`
-
-## 数据访问地址
-
-每日 JSON：
-
-`https://cdn.jsdelivr.net/gh/luckkyboy/news-data@main/static/news/YYYY-MM-DD.json`
-
-每日图片：
-
-`https://cdn.jsdelivr.net/gh/luckkyboy/news-data@main/static/images/YYYY-MM-DD.png`
-
-示例（2026-03-27）：
-
-- `https://cdn.jsdelivr.net/gh/luckkyboy/news-data@main/static/news/2026-03-27.json`
-- `https://cdn.jsdelivr.net/gh/luckkyboy/news-data@main/static/images/2026-03-27.png`
 
 ## 本地快速运行
 

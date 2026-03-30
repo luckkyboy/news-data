@@ -258,6 +258,21 @@ pre {
   transform: translateY(-1px);
 }
 
+.preview-toolbar button:disabled {
+  background: rgba(255, 255, 255, 0.22);
+  color: color-mix(in srgb, var(--muted) 78%, #ffffff 22%);
+  border-color: color-mix(in srgb, var(--line) 85%, transparent);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.preview-toolbar button:disabled:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: color-mix(in srgb, var(--line) 85%, transparent);
+  transform: none;
+}
+
 .preview-canvas {
   position: relative;
   z-index: 1;

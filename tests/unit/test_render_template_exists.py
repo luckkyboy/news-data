@@ -79,6 +79,7 @@ def test_pages_preview_shell_exists() -> None:
     assert "themeByWeekday" in js
     assert "document.body.dataset.theme" in js
     assert "findAvailableDate" in js
+    assert "syncNavigationButtons" in js
     assert 'fetch("./data/index.json")' not in js
     assert "width: min(calc(100vw - 36px), 1620px);" in css
     assert "grid-template-columns: minmax(0, 1200px) 384px;" in css
@@ -89,6 +90,7 @@ def test_pages_preview_shell_exists() -> None:
     assert 'grid-template-areas:\n      "badge"\n      "actions";' in css
     assert "grid-template-columns: repeat(2, minmax(0, 1fr));" in css
     assert "min-height: clamp(220px, 30dvh, 280px);" in css
+    assert ".preview-toolbar button:disabled {" in css
     assert "object-fit: contain;" in css
     assert 'body[data-theme="warm"] {' in css
     assert "@media (max-width: 768px)" in css
