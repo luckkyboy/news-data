@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from pathlib import Path
 
 from app.domain.models import DailyNewsDocument
@@ -6,19 +8,22 @@ from app.infrastructure.storage.local_json_repository import LocalJsonRepository
 
 def test_local_json_repository_creates_output_dir_and_saves_json(tmp_path: Path) -> None:
     output_dir = tmp_path / "static" / "60s"
-    repository = LocalJsonRepository(output_dir)
+    repository = LocalJsonRepository(
+        output_dir,
+        now_provider=lambda: datetime(2026, 3, 27, 8, 0, 0),
+    )
     document = DailyNewsDocument(
         date="2026-03-27",
         news=["A", "B"],
         sources=["人民日报", "新华社"],
         cover="https://example.com/cover.png",
         image="",
-        title="每天60秒读懂世界｜3月27日",
+        title="每日简报｜3月27日",
         quote="",
         link="https://mp.weixin.qq.com/s/example",
         publish_date="2026-03-27 06:30:00",
-        create_date="2026-03-27 06:30:00",
-        update_date="2026-03-27 06:35:00",
+        create_date="",
+        update_date="",
     )
 
     assert output_dir.exists()
@@ -41,11 +46,11 @@ def test_local_json_repository_creates_output_dir_and_saves_json(tmp_path: Path)
         '  ],\n'
         '  "cover": "https://example.com/cover.png",\n'
         '  "image": "",\n'
-        '  "title": "每天60秒读懂世界｜3月27日",\n'
+        '  "title": "每日简报｜3月27日",\n'
         '  "quote": "",\n'
         '  "link": "https://mp.weixin.qq.com/s/example",\n'
         '  "publish_date": "2026-03-27 06:30:00",\n'
-        '  "create_date": "2026-03-27 06:30:00",\n'
-        '  "update_date": "2026-03-27 06:35:00"\n'
+        '  "create_date": "2026-03-27 08:00:00",\n'
+        '  "update_date": "2026-03-27 08:00:00"\n'
         '}\n'
     )

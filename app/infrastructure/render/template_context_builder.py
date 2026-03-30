@@ -26,7 +26,15 @@ class DailyNewsTemplateContextBuilder:
     _GANZHI_STEMS = ("甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸")
     _GANZHI_BRANCHES = ("子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥")
     _WEEKDAY_LABELS = ("星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日")
-    _WARM_THEME_WEEKDAYS = {5, 6}
+    _THEME_BY_WEEKDAY = (
+        "cool",
+        "forest",
+        "navy",
+        "terracotta",
+        "rose",
+        "warm",
+        "citrus",
+    )
 
     def build(self, document: DailyNewsDocument, *, font_face_css: str) -> NewsTemplateContext:
         date_parts = self._parse_date_parts(document.date)
@@ -38,7 +46,7 @@ class DailyNewsTemplateContextBuilder:
             "quote_text": document.quote.strip(),
             "source_text": "/".join(document.sources),
             "news_count_text": f"共 {len(document.news)} 条国内外精选新闻 ",
-            "updated_text": self._build_updated_text(document.update_date),
+            "updated_text": self._build_updated_text(document.publish_date),
             "document": document.model_dump(),
         }
 
@@ -86,7 +94,7 @@ class DailyNewsTemplateContextBuilder:
             weekday = datetime_date(year, month, day).weekday()
         except ValueError:
             return "cool"
-        return "warm" if weekday in cls._WARM_THEME_WEEKDAYS else "cool"
+        return cls._THEME_BY_WEEKDAY[weekday]
 
     @classmethod
     def _extract_lunar_text(cls, title: str) -> str:

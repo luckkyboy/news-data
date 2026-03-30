@@ -54,7 +54,7 @@ def test_daily_news_document_accepts_m1_schema() -> None:
         date="2026-03-27",
         news=["A", "B"],
         cover="https://example.com/cover.png",
-        title="每天60秒读懂世界｜3月27日",
+        title="每日简报｜3月27日",
         link="https://mp.weixin.qq.com/s/example",
         publish_date="2026-03-27 06:30:00",
         create_date="2026-03-27 06:30:00",
@@ -69,7 +69,7 @@ def test_daily_news_document_accepts_m1_schema() -> None:
         DailyNewsDocument(
             date="2026-03-27",
             news=[],
-            title="每天60秒读懂世界｜3月27日",
+            title="每日简报｜3月27日",
             link="https://mp.weixin.qq.com/s/example",
             publish_date="2026-03-27 06:30:00",
             create_date="2026-03-27 06:30:00",

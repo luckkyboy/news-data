@@ -36,7 +36,7 @@ class _FakeParser:
     def parse(self, html: str) -> ParsedArticle:
         self.calls += 1
         return ParsedArticle(
-            title="每天60秒读懂世界｜3月27日",
+            title="每日简报｜3月27日",
             news=["第一条", "第二条"],
             sources=["人民日报"],
             cover="https://example.com/cover.png",
@@ -116,7 +116,7 @@ def test_job_run_status_backfilled_image_for_existing_json(tmp_path: Path) -> No
             sources=["人民日报"],
             cover="https://example.com/cover.png",
             image="",
-            title="每天60秒读懂世界｜3月27日",
+            title="每日简报｜3月27日",
             quote="一句话总结",
             link="https://mp.weixin.qq.com/s/example",
             publish_date="2026-03-27 06:30:00",
@@ -143,7 +143,7 @@ def test_job_run_status_skipped_for_existing_json_and_png(tmp_path: Path) -> Non
             sources=["人民日报"],
             cover="https://example.com/cover.png",
             image="https://cdn.example.com/static/images/2026-03-27.png",
-            title="每天60秒读懂世界｜3月27日",
+            title="每日简报｜3月27日",
             quote="一句话总结",
             link="https://mp.weixin.qq.com/s/example",
             publish_date="2026-03-27 06:30:00",

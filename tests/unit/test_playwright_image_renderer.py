@@ -11,7 +11,7 @@ def test_build_html_injects_document_fields() -> None:
         news=["第一条", "第二条"],
         cover="https://example.com/cover.png",
         image="",
-        title="每天60秒读懂世界｜3月27日",
+        title="每日简报｜3月27日",
         quote="一句话总结",
         link="https://mp.weixin.qq.com/s/example",
         publish_date="2026-03-27 06:30:00",
@@ -32,8 +32,8 @@ def test_build_html_injects_document_fields() -> None:
     assert "window.__DATA__ =" not in html
     assert "__NEWS_DATA__" not in html
     assert "2026年3月27日" in html
-    assert "更新于 2026-03-27 06:35" in html
-    assert 'data-theme="cool"' in html
+    assert "更新于 2026-03-27 06:30" in html
+    assert 'data-theme="rose"' in html
 
 
 def test_build_html_uses_fixed_brand_header_and_omits_cover_rendering() -> None:
@@ -61,7 +61,7 @@ def test_build_html_uses_fixed_brand_header_and_omits_cover_rendering() -> None:
     assert "共 1 条国内外精选新闻" in html
     assert "更新于 2026-03-27 00:00" in html
     assert "丙午年二月初九" in html
-    assert 'data-theme="cool"' in html
+    assert 'data-theme="rose"' in html
 
 
 def test_build_html_uses_adaptive_card_height_layout() -> None:
@@ -70,7 +70,7 @@ def test_build_html_uses_adaptive_card_height_layout() -> None:
         news=["第一条", "第二条", "第三条"],
         cover="https://example.com/cover.png",
         image="",
-        title="每天60秒读懂世界｜3月29日",
+        title="每日简报｜3月29日",
         quote="一句话总结",
         link="https://mp.weixin.qq.com/s/example",
         publish_date="2026-03-29 06:30:00",
@@ -94,13 +94,13 @@ def test_build_html_uses_adaptive_card_height_layout() -> None:
     assert "transform: translateY(-50%) skewX(-12deg);" in html
 
 
-def test_build_html_uses_warm_theme_for_weekend() -> None:
+def test_build_html_uses_citrus_theme_for_sunday() -> None:
     document = DailyNewsDocument(
         date="2026-03-29",
         news=["第一条"],
         cover="https://example.com/cover.png",
         image="",
-        title="每天60秒读懂世界｜3月29日",
+        title="每日简报｜3月29日",
         quote="一句话总结",
         link="https://mp.weixin.qq.com/s/example",
         publish_date="2026-03-29 06:30:00",
@@ -111,5 +111,5 @@ def test_build_html_uses_warm_theme_for_weekend() -> None:
 
     html = renderer.build_html(document)
 
-    assert 'data-theme="warm"' in html
-    assert 'body[data-theme="warm"] {' in html
+    assert 'data-theme="citrus"' in html
+    assert 'body[data-theme="citrus"] {' in html

@@ -51,7 +51,7 @@ def test_parse_wechat_article_supports_jsdecode_create_time_and_bracketed_quote(
         <title>示例</title>
       </head>
       <body>
-        <h1 id="activity-name">3月27日，星期五，在这里每天60秒读懂世界！</h1>
+        <h1 id="activity-name">3月27日，星期五，世界速览！</h1>
         <script>
           var msg = {
             create_time: JsDecode('2026-03-27 07:06')

@@ -50,4 +50,9 @@ def test_base_template_uses_adaptive_height_layout_contract() -> None:
     assert "font-style: italic;" in quote_text_section
     assert '<body data-theme="{{ theme_name }}">' in content
     assert 'body[data-theme="warm"] {' in content
+    assert 'body[data-theme="forest"] {' in content
+    assert 'body[data-theme="navy"] {' in content
+    assert 'body[data-theme="terracotta"] {' in content
+    assert 'body[data-theme="rose"] {' in content
+    assert 'body[data-theme="citrus"] {' in content
     assert "--accent: #ef7d00;" in content

@@ -14,7 +14,7 @@ def test_job_run_result_accepts_document() -> None:
         date="2026-03-27",
         news=["第一条"],
         cover="",
-        title="每天60秒读懂世界｜3月27日",
+        title="每日简报｜3月27日",
         link="https://mp.weixin.qq.com/s/example",
         publish_date="2026-03-27 06:30:00",
         create_date="2026-03-27 06:30:00",
