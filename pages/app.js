@@ -3,6 +3,16 @@ const state = {
   currentDate: "",
 };
 
+const themeByWeekday = [
+  "cool",
+  "forest",
+  "navy",
+  "terracotta",
+  "rose",
+  "warm",
+  "citrus",
+];
+
 function escapeHtml(value) {
   return String(value)
     .replaceAll("&", "&amp;")
@@ -27,13 +37,24 @@ function writeUrl(date) {
   window.history.replaceState({}, "", url);
 }
 
+function themeNameForDate(date) {
+  const [year, month, day] = String(date)
+    .split("-")
+    .map((part) => Number.parseInt(part, 10));
+  if (![year, month, day].every(Number.isInteger)) {
+    return "cool";
+  }
+  const weekday = new Date(year, month - 1, day).getDay();
+  return themeByWeekday[(weekday + 6) % 7] ?? "cool";
+}
+
 function renderSummary(payload) {
   const sourceText = Array.isArray(payload.sources) ? payload.sources.join(" / ") : "";
   const quoteText = payload.quote || "暂无金句";
 
   document.getElementById("summary-panel").innerHTML = `
     <div class="summary-header">
-      <p class="eyebrow">Curated Note</p>
+      <p class="eyebrow">Preview Summary</p>
       <h2 class="summary-title">${escapeHtml(payload.title || payload.date || "")}</h2>
       <div class="summary-meta">发布日期 ${escapeHtml(payload.publish_date || "-")}</div>
     </div>
@@ -63,21 +84,13 @@ async function renderDate(date) {
   }
   state.currentDate = date;
   writeUrl(date);
+  document.body.dataset.theme = themeNameForDate(date);
 
   document.getElementById("current-date-label").textContent = date;
-  const stageDateLabel = document.getElementById("stage-date-label");
-  if (stageDateLabel) {
-    stageDateLabel.textContent = date;
-  }
+  document.getElementById("stage-date-label").textContent = date;
   document.getElementById("preview-image").src = item.image_path;
-  const imageLink = document.getElementById("open-image-link");
-  if (imageLink) {
-    imageLink.href = item.image_path;
-  }
-  const jsonLink = document.getElementById("open-json-link");
-  if (jsonLink) {
-    jsonLink.href = item.json_path;
-  }
+  document.getElementById("open-image-link").href = item.image_path;
+  document.getElementById("open-json-link").href = item.json_path;
 
   const response = await fetch(item.json_path);
   const payload = await response.json();
@@ -137,7 +150,7 @@ async function bootstrap() {
 bootstrap().catch((error) => {
   const summary = document.getElementById("summary-panel");
   if (summary) {
-    summary.innerHTML = `<div class="summary-header"><p class="eyebrow">Error</p><h2 class="summary-title">预览加载失败</h2></div>`;
+    summary.innerHTML = '<div class="summary-header"><p class="eyebrow">Error</p><h2 class="summary-title">预览加载失败</h2></div>';
   }
   document.getElementById("json-panel").textContent = String(error);
 });

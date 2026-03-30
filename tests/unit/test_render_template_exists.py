@@ -63,14 +63,18 @@ def test_pages_preview_shell_exists() -> None:
     js = Path("pages/app.js").read_text(encoding="utf-8")
     css = Path("pages/styles.css").read_text(encoding="utf-8")
 
+    assert 'data-theme="cool"' in html
+    assert 'class="split-shell"' in html
+    assert 'class="preview-pane"' in html
+    assert 'class="inspector-pane"' in html
     assert 'id="date-list"' in html
     assert 'id="preview-image"' in html
     assert 'id="json-panel"' in html
-    assert 'class="gallery-shell"' in html
-    assert 'class="timeline"' in html
     assert 'id="summary-panel"' in html
     assert "new URLSearchParams" in js
-    assert "grid-template-areas:" in css
+    assert "themeByWeekday" in js
+    assert "document.body.dataset.theme" in js
+    assert "grid-template-columns: minmax(0, 1.55fr) 420px;" in css
     assert "object-fit: contain;" in css
-    assert "backdrop-filter:" in css
+    assert 'body[data-theme="warm"] {' in css
     assert "@media (max-width: 768px)" in css

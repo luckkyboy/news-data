@@ -6,46 +6,47 @@
     <title>每日简报预览</title>
     <link rel="stylesheet" href="./styles.css" />
   </head>
-  <body>
-    <main class="gallery-shell">
-      <section class="gallery-stage">
-        <header class="stage-header">
-          <div class="stage-kicker">
-            <p class="eyebrow">Gallery Console</p>
-            <h1 id="stage-date-label">-</h1>
+  <body data-theme="cool">
+    <main class="split-shell">
+      <section class="preview-pane">
+        <div class="preview-frame">
+          <div class="preview-badge-block">
+            <p class="preview-badge">NEWS DATA</p>
+            <h1 id="stage-date-label" class="preview-date">-</h1>
           </div>
-          <div class="stage-actions">
+
+          <div class="preview-toolbar">
             <button id="prev-button" type="button">上一天</button>
             <button id="next-button" type="button">下一天</button>
             <a id="open-image-link" href="#" target="_blank" rel="noreferrer">原图</a>
             <a id="open-json-link" href="#" target="_blank" rel="noreferrer">原始 JSON</a>
           </div>
-        </header>
 
-        <div class="stage-frame">
-          <div class="stage-badge" aria-hidden="true">NEWS DATA</div>
-          <div class="stage-media">
+          <div class="preview-canvas">
             <img id="preview-image" alt="预览图片" />
           </div>
         </div>
       </section>
 
-      <aside class="gallery-info">
-        <section id="summary-panel" class="summary-panel"></section>
-        <details class="raw-json-block" open>
-          <summary>原始 JSON</summary>
-          <pre id="json-panel"></pre>
-        </details>
-      </aside>
+      <aside class="inspector-pane">
+        <header class="inspector-head">
+          <div class="inspector-title-block">
+            <p class="eyebrow">JSON Inspector</p>
+            <p id="current-date-label" class="inspector-date"></p>
+          </div>
+          <nav id="date-list" class="date-strip" aria-label="日期列表"></nav>
+        </header>
 
-      <aside class="timeline">
-        <div class="timeline-head">
-          <p class="eyebrow">Timeline</p>
-          <p id="current-date-label" class="timeline-current"></p>
-        </div>
-        <nav id="date-list" class="date-list" aria-label="日期列表"></nav>
+        <section id="summary-panel" class="summary-panel"></section>
+
+        <section class="raw-json-panel">
+          <div class="raw-json-head">
+            <p class="eyebrow">Raw Payload</p>
+          </div>
+          <pre id="json-panel"></pre>
+        </section>
       </aside>
     </main>
     <script src="./app.js" type="module"></script>
   </body>
-  </html>
+</html>
