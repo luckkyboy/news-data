@@ -6,7 +6,7 @@ GitHub Pages 预览：
 
 [https://luckkyboy.github.io/news-data](https://luckkyboy.github.io/news-data)
 
-本项目代码完全是由AI生成的，如有需要可以自由使用。
+本项目代码完全是由 AI 生成，采用 [MIT License](./LICENSE)，可自由使用、修改和分发。
 
 项目会产出两类文件：
 

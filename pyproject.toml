@@ -6,6 +6,7 @@ build-backend = "hatchling.build"
 name = "news-static"
 version = "0.1.0"
 description = "WeChat daily news static JSON generator"
+license = { text = "MIT" }
 requires-python = ">=3.12"
 dependencies = [
   "httpx>=0.27.0",
