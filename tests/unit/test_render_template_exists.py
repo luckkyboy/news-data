@@ -72,4 +72,4 @@ def test_pages_preview_shell_exists() -> None:
     assert "height: 100dvh;" in css
     assert "object-fit: contain;" in css
     assert "@media (max-width: 768px)" in css
-    assert "grid-template-rows: auto minmax(0, 1fr) minmax(160px, 26dvh);" in css
+    assert "grid-template-rows: minmax(0, 1fr) minmax(160px, 26dvh) auto;" in css
