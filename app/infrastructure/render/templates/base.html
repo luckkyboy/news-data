@@ -15,6 +15,25 @@
         --muted-strong: #1e293b;
         --accent: #0ea5e9;
         --line: #dbe4f0;
+        --body-glow-1: rgba(14, 165, 233, 0.12);
+        --body-glow-2: rgba(59, 130, 246, 0.1);
+        --body-top: #f8fbff;
+        --card-border: #d7e3f3;
+        --card-shadow: rgba(15, 23, 42, 0.12);
+        --hero-bg-1: #f8fcff;
+        --hero-bg-2: #f2f7ff;
+        --hero-bg-3: #eef4ff;
+        --news-border: #dce8f8;
+        --news-surface-top: #ffffff;
+        --news-surface-bottom: #f8fbff;
+        --badge-bg: #e0f2fe;
+        --badge-text: #0369a1;
+        --quote-bg-top: #f8fbff;
+        --quote-bg-bottom: #f3f8ff;
+        --quote-mark: #0f766e;
+        --quote-text-color: #334155;
+        --footer-bg: #f8fbff;
+        --footer-accent-bar: #7dd3fc;
         --hero-meta-size: 27px;
         --hero-meta-weight: 800;
         --news-font-size: 30px;
@@ -23,6 +42,34 @@
         --footer-font-weight: 800;
         --footer-line-height: 1.25;
         --footer-edge-gap: 6px;
+      }
+      body[data-theme="warm"] {
+        --bg: #f5f1e8;
+        --card: #fffdf8;
+        --text: #302822;
+        --muted: #7f756b;
+        --muted-strong: #62584e;
+        --accent: #ef7d00;
+        --line: rgba(48, 40, 34, 0.1);
+        --body-glow-1: rgba(239, 125, 0, 0.08);
+        --body-glow-2: rgba(239, 125, 0, 0);
+        --body-top: #fcfaf5;
+        --card-border: rgba(48, 40, 34, 0.1);
+        --card-shadow: rgba(48, 40, 34, 0.1);
+        --hero-bg-1: #f9f4eb;
+        --hero-bg-2: #f9f4eb;
+        --hero-bg-3: #f9f4eb;
+        --news-border: rgba(48, 40, 34, 0.12);
+        --news-surface-top: #fffdf8;
+        --news-surface-bottom: #fbf6ee;
+        --badge-bg: #ffe7cc;
+        --badge-text: #b45309;
+        --quote-bg-top: #f9f4eb;
+        --quote-bg-bottom: #f9f4eb;
+        --quote-mark: #b45309;
+        --quote-text-color: #62584e;
+        --footer-bg: #fffaf2;
+        --footer-accent-bar: #ef7d00;
       }
       * {
         box-sizing: border-box;
@@ -34,9 +81,9 @@
         place-items: center;
         padding: 0;
         background:
-          radial-gradient(circle at 10% 0%, rgba(14, 165, 233, 0.12), transparent 40%),
-          radial-gradient(circle at 100% 0%, rgba(59, 130, 246, 0.1), transparent 36%),
-          linear-gradient(180deg, #f8fbff 0%, var(--bg) 100%);
+          radial-gradient(circle at 10% 0%, var(--body-glow-1), transparent 40%),
+          radial-gradient(circle at 100% 0%, var(--body-glow-2), transparent 36%),
+          linear-gradient(180deg, var(--body-top) 0%, var(--bg) 100%);
         color: var(--text);
         font-family: "LXGW WenKai Mono", "PingFang SC", "Noto Sans CJK SC",
           "Noto Sans SC", "Source Han Sans SC", -apple-system,
@@ -48,10 +95,10 @@
         display: flex;
         flex-direction: column;
         background: var(--card);
-        border: 1px solid #d7e3f3;
+        border: 1px solid var(--card-border);
         border-radius: 20px;
         overflow: hidden;
-        box-shadow: 0 24px 70px rgba(15, 23, 42, 0.12);
+        box-shadow: 0 24px 70px var(--card-shadow);
       }
       .hero {
         display: flex;
@@ -61,7 +108,7 @@
         padding: 0 40px;
         border-bottom: 1px solid var(--line);
         background:
-          linear-gradient(92deg, #f8fcff 0%, #f2f7ff 45%, #eef4ff 100%);
+          linear-gradient(92deg, var(--hero-bg-1) 0%, var(--hero-bg-2) 45%, var(--hero-bg-3) 100%);
       }
       .hero-main {
         min-width: 0;
@@ -100,8 +147,8 @@
         position: relative;
         margin: 0;
         padding: 11px 18px 11px 85px;
-        border: 1px solid #dce8f8;
-        background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+        border: 1px solid var(--news-border);
+        background: linear-gradient(180deg, var(--news-surface-top) 0%, var(--news-surface-bottom) 100%);
         border-radius: 14px;
       }
       li::before {
@@ -113,8 +160,8 @@
         min-width: 47px;
         padding: 3px 10px;
         border-radius: 999px;
-        background: #e0f2fe;
-        color: #0369a1;
+        background: var(--badge-bg);
+        color: var(--badge-text);
         font-size: 23px;
         font-weight: 800;
         line-height: 1.4;
@@ -132,7 +179,7 @@
         margin-bottom: 8px;
         border-top: 1px solid var(--line);
         border-bottom: 1px solid var(--line);
-        background: linear-gradient(180deg, #f8fbff 0%, #f3f8ff 100%);
+        background: linear-gradient(180deg, var(--quote-bg-top) 0%, var(--quote-bg-bottom) 100%);
       }
       .quote-shell {
         position: relative;
@@ -145,7 +192,7 @@
         position: absolute;
         top: 50%;
         transform: translateY(-50%) skewX(-12deg);
-        color: #0f766e;
+        color: var(--quote-mark);
         font-size: 58px;
         font-weight: 800;
         line-height: 1;
@@ -159,7 +206,7 @@
       .quote-text {
         margin: 0;
         max-width: 76%;
-        color: #334155;
+        color: var(--quote-text-color);
         text-align: center;
         font-size: 29px;
         font-weight: 700;
@@ -179,7 +226,7 @@
         padding: 10px 34px var(--footer-edge-gap);
         border-top: 1px solid var(--line);
         color: var(--muted);
-        background: #f8fbff;
+        background: var(--footer-bg);
       }
       .footer-text {
         color: var(--muted);
@@ -200,7 +247,7 @@
       .footer-sources {
         grid-area: left-top;
         padding-left: 12px;
-        border-left: 4px solid #7dd3fc;
+        border-left: 4px solid var(--footer-accent-bar);
       }
       .footer-meta {
         grid-area: left-bottom;
@@ -208,7 +255,7 @@
         flex-wrap: wrap;
         gap: 0;
         padding-left: 12px;
-        border-left: 4px solid #7dd3fc;
+        border-left: 4px solid var(--footer-accent-bar);
       }
       .footer-right {
         display: contents;
@@ -265,7 +312,7 @@
       }
     </style>
   </head>
-  <body>
+  <body data-theme="{{ theme_name }}">
     {% block body %}{% endblock %}
   </body>
 </html>

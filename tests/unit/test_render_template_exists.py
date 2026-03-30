@@ -48,3 +48,6 @@ def test_base_template_uses_adaptive_height_layout_contract() -> None:
     assert "transform: translateY(-50%) skewX(-12deg);" in quote_mark_section
     assert "max-width: 76%;" in quote_text_section
     assert "font-style: italic;" in quote_text_section
+    assert '<body data-theme="{{ theme_name }}">' in content
+    assert 'body[data-theme="warm"] {' in content
+    assert "--accent: #ef7d00;" in content

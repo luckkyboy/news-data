@@ -9,6 +9,7 @@ from app.domain.models import DailyNewsDocument
 
 class NewsTemplateContext(TypedDict):
     font_face_css: str
+    theme_name: str
     hero_meta_text: str
     news_items: list[str]
     quote_text: str
@@ -25,10 +26,13 @@ class DailyNewsTemplateContextBuilder:
     _GANZHI_STEMS = ("甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸")
     _GANZHI_BRANCHES = ("子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥")
     _WEEKDAY_LABELS = ("星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日")
+    _WARM_THEME_WEEKDAYS = {5, 6}
 
     def build(self, document: DailyNewsDocument, *, font_face_css: str) -> NewsTemplateContext:
+        date_parts = self._parse_date_parts(document.date)
         return {
             "font_face_css": font_face_css,
+            "theme_name": self._theme_name_for_date_parts(date_parts),
             "hero_meta_text": self._build_hero_meta_text(document),
             "news_items": document.news,
             "quote_text": document.quote.strip(),
@@ -74,6 +78,17 @@ class DailyNewsTemplateContextBuilder:
         return cls._WEEKDAY_LABELS[weekday]
 
     @classmethod
+    def _theme_name_for_date_parts(cls, date_parts: tuple[int, int, int] | None) -> str:
+        if date_parts is None:
+            return "cool"
+        year, month, day = date_parts
+        try:
+            weekday = datetime_date(year, month, day).weekday()
+        except ValueError:
+            return "cool"
+        return "warm" if weekday in cls._WARM_THEME_WEEKDAYS else "cool"
+
+    @classmethod
     def _extract_lunar_text(cls, title: str) -> str:
         if not title:
             return ""
@@ -102,4 +117,3 @@ class DailyNewsTemplateContextBuilder:
     @staticmethod
     def _trim_seconds(value: str) -> str:
         return value[:16] if len(value) >= 16 else value
-
