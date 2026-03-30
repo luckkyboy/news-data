@@ -7,27 +7,46 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <main class="layout">
-      <aside class="sidebar">
-        <div class="sidebar-head">
-          <h1>预览</h1>
-          <p id="current-date-label"></p>
+    <main class="workspace">
+      <aside class="rail">
+        <div class="rail-head">
+          <p class="eyebrow">News Data</p>
+          <h1>Preview Desk</h1>
+          <p id="current-date-label" class="current-date"></p>
         </div>
         <nav id="date-list" class="date-list" aria-label="日期列表"></nav>
       </aside>
-      <section class="preview-pane">
-        <div class="preview-toolbar">
-          <button id="prev-button" type="button">上一天</button>
-          <button id="next-button" type="button">下一天</button>
-        </div>
-        <div class="image-shell">
-          <img id="preview-image" alt="预览图片" />
+
+      <section class="stage">
+        <header class="stage-toolbar">
+          <div class="stage-meta">
+            <p class="eyebrow">正式产物</p>
+            <h2 id="stage-date-label">-</h2>
+          </div>
+          <div class="stage-actions">
+            <button id="prev-button" type="button">上一天</button>
+            <button id="next-button" type="button">下一天</button>
+            <a id="open-image-link" href="#" target="_blank" rel="noreferrer">原图</a>
+            <a id="open-json-link" href="#" target="_blank" rel="noreferrer">原始 JSON</a>
+          </div>
+        </header>
+
+        <div class="stage-frame">
+          <div class="stage-media">
+            <img id="preview-image" alt="预览图片" />
+          </div>
         </div>
       </section>
-      <section class="json-pane">
-        <h2>JSON</h2>
-        <pre id="json-panel"></pre>
-      </section>
+
+      <aside class="inspector">
+        <header class="inspector-head">
+          <p class="eyebrow">JSON Inspector</p>
+          <h2>数据</h2>
+        </header>
+        <div class="inspector-body">
+          <pre id="json-panel"></pre>
+        </div>
+      </aside>
     </main>
     <script src="./app.js" type="module"></script>
   </body>

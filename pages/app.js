@@ -22,13 +22,26 @@ function writeUrl(date) {
 async function renderDate(date) {
   const item = getItemByDate(date);
   if (!item) {
+    document.getElementById("json-panel").textContent = "预览数据不可用";
     return;
   }
   state.currentDate = date;
   writeUrl(date);
 
   document.getElementById("current-date-label").textContent = date;
+  const stageDateLabel = document.getElementById("stage-date-label");
+  if (stageDateLabel) {
+    stageDateLabel.textContent = date;
+  }
   document.getElementById("preview-image").src = item.image_path;
+  const imageLink = document.getElementById("open-image-link");
+  if (imageLink) {
+    imageLink.href = item.image_path;
+  }
+  const jsonLink = document.getElementById("open-json-link");
+  if (jsonLink) {
+    jsonLink.href = item.json_path;
+  }
 
   const response = await fetch(item.json_path);
   const payload = await response.json();

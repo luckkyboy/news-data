@@ -61,8 +61,15 @@ def test_base_template_uses_adaptive_height_layout_contract() -> None:
 def test_pages_preview_shell_exists() -> None:
     html = Path("pages/index.html").read_text(encoding="utf-8")
     js = Path("pages/app.js").read_text(encoding="utf-8")
+    css = Path("pages/styles.css").read_text(encoding="utf-8")
 
     assert 'id="date-list"' in html
     assert 'id="preview-image"' in html
     assert 'id="json-panel"' in html
+    assert 'class="workspace"' in html
+    assert 'class="stage-meta"' in html
     assert "new URLSearchParams" in js
+    assert "height: 100dvh;" in css
+    assert "object-fit: contain;" in css
+    assert "@media (max-width: 768px)" in css
+    assert "grid-template-rows: auto minmax(0, 1fr) minmax(160px, 26dvh);" in css
