@@ -115,6 +115,10 @@ CDN 访问：
 - JSON：`static/news`
 - 图片：`static/images`
 
+## Contributing
+
+贡献说明请见 [CONTRIBUTING.md](./CONTRIBUTING.md)。
+
 ## 致谢
 
 - 感谢霞鹜文楷字体支持
