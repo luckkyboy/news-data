@@ -4,7 +4,7 @@
 
 GitHub Pages 预览：
 
-`https://luckkyboy.github.io/news-data/`
+[https://luckkyboy.github.io/news-data](https://luckkyboy.github.io/news-data)
 
 本项目代码完全是由AI生成的，如有需要可以自由使用。
 
