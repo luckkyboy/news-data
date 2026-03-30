@@ -30,3 +30,14 @@ def test_daily_fetch_workflow_exists_and_uses_cli_entrypoint() -> None:
     assert "git add static/news static/images" in content
     assert "git push" in content
     assert "actions:news:update" in content
+
+
+def test_pages_preview_workflow_exists() -> None:
+    workflow = Path(".github/workflows/pages-preview.yml")
+
+    assert workflow.exists()
+
+    content = workflow.read_text(encoding="utf-8")
+    assert "actions/configure-pages" in content
+    assert "actions/deploy-pages" in content
+    assert "python -m app.entrypoints.preview_page_index" in content

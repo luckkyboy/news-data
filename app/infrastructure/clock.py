@@ -11,3 +11,7 @@ def to_beijing_datetime(timestamp: int) -> datetime:
 
 def format_beijing_datetime(timestamp: int) -> str:
     return to_beijing_datetime(timestamp).strftime("%Y-%m-%d %H:%M:%S")
+
+
+def current_beijing_datetime() -> datetime:
+    return datetime.now(BEIJING_TZ)

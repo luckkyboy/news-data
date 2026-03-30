@@ -56,3 +56,13 @@ def test_base_template_uses_adaptive_height_layout_contract() -> None:
     assert 'body[data-theme="rose"] {' in content
     assert 'body[data-theme="citrus"] {' in content
     assert "--accent: #ef7d00;" in content
+
+
+def test_pages_preview_shell_exists() -> None:
+    html = Path("pages/index.html").read_text(encoding="utf-8")
+    js = Path("pages/app.js").read_text(encoding="utf-8")
+
+    assert 'id="date-list"' in html
+    assert 'id="preview-image"' in html
+    assert 'id="json-panel"' in html
+    assert "new URLSearchParams" in js

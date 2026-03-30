@@ -6,7 +6,6 @@ from typing import Sequence
 
 from app.application.article_selector import select_article
 from app.domain.models import AccountConfig, DailyNewsDocument, JobRunResult, ParsedArticle
-from app.infrastructure.clock import format_beijing_datetime
 from app.ports.article_parser import ArticleParser
 from app.ports.image_renderer import ImageRenderer
 from app.ports.repository import DailyNewsRepository, StaticAssetsRepository
@@ -96,8 +95,8 @@ class DailyJobService:
                 quote=parsed.quote,
                 link=selected.link,
                 publish_date=parsed.publish_date,
-                create_date=format_beijing_datetime(selected.create_ts),
-                update_date=format_beijing_datetime(selected.update_ts),
+                create_date="",
+                update_date="",
             )
 
         raise RuntimeError(f"no article found for {target_date}")

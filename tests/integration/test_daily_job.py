@@ -1,11 +1,11 @@
 from __future__ import annotations
 
 import json
+from datetime import datetime
 from pathlib import Path
 
 from app.application.daily_job import DailyJobService
 from app.domain.models import AccountConfig, CandidateArticle, DailyNewsDocument
-from app.infrastructure.clock import format_beijing_datetime
 from app.infrastructure.parser.wechat_article_parser import WeChatArticleParser
 from app.infrastructure.storage.local_json_repository import LocalJsonRepository
 
@@ -55,7 +55,10 @@ def test_daily_job_success_writes_json(tmp_path: Path) -> None:
     html = Path("tests/fixtures/wechat_article_sample.html").read_text(encoding="utf-8")
     source_client = _FakeSourceClient(html)
     parser = WeChatArticleParser()
-    repository = LocalJsonRepository(tmp_path)
+    repository = LocalJsonRepository(
+        tmp_path,
+        now_provider=lambda: datetime(2026, 3, 27, 8, 0, 0),
+    )
     accounts = [
         AccountConfig(
             name="first",
@@ -99,8 +102,8 @@ def test_daily_job_success_writes_json(tmp_path: Path) -> None:
         quote=parsed.quote,
         link="https://mp.weixin.qq.com/s/example",
         publish_date=parsed.publish_date,
-        create_date=format_beijing_datetime(1774564200),
-        update_date=format_beijing_datetime(1774564500),
+        create_date="2026-03-27 08:00:00",
+        update_date="2026-03-27 08:00:00",
     )
     assert payload == {
         "date": "2026-03-27",
@@ -112,8 +115,8 @@ def test_daily_job_success_writes_json(tmp_path: Path) -> None:
         "quote": parsed.quote,
         "link": "https://mp.weixin.qq.com/s/example",
         "publish_date": parsed.publish_date,
-        "create_date": format_beijing_datetime(1774564200),
-        "update_date": format_beijing_datetime(1774564500),
+        "create_date": "2026-03-27 08:00:00",
+        "update_date": "2026-03-27 08:00:00",
     }
     assert source_client.search_calls == [
         ("fake-1", "3月27日 读懂世界", 6),
@@ -123,7 +126,10 @@ def test_daily_job_success_writes_json(tmp_path: Path) -> None:
 
 
 def test_daily_job_returns_without_writing_when_document_exists(tmp_path: Path) -> None:
-    repository = LocalJsonRepository(tmp_path)
+    repository = LocalJsonRepository(
+        tmp_path,
+        now_provider=lambda: datetime(2026, 3, 27, 8, 0, 0),
+    )
     existing = DailyNewsDocument(
         date="2026-03-27",
         news=["A"],

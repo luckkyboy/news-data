@@ -2,6 +2,10 @@
 
 一个用于每日定时抓取新闻资讯并生成静态内容的仓库。
 
+GitHub Pages 预览：
+
+`https://luckkyboy.github.io/news-data/`
+
 本项目代码完全是由AI生成的，如有需要可以自由使用。
 
 项目会产出两类文件：
@@ -20,9 +24,11 @@
 - `app/infrastructure/parser`：文章 HTML 解析
 - `app/infrastructure/render`：基于模板 + Playwright 渲染图片
 - `app/infrastructure/storage`：静态资产读写（`static/news`、`static/images`）
-- `app/entrypoints`：运行入口（如 `run_daily_job.py`）
+- `app/entrypoints`：运行入口（如 `run_daily_job.py`、`preview_render.py`、`preview_page_index.py`）
 - `config/accounts.yaml`：公众号账号配置
 - `.github/workflows/daily-fetch.yml`：定时任务与自动提交流程
+- `.github/workflows/pages-preview.yml`：GitHub Pages 预览站部署
+- `pages/`：GitHub Pages 静态预览页面
 
 ## 运行逻辑
 
@@ -50,6 +56,22 @@
 - 运行后会自动提交并推送 `static/news` 与 `static/images` 的更新
 
 对应北京时间为：每天 `00:00-10:59` 每 10 分钟执行一次。
+
+## GitHub Pages 预览
+
+- 预览站展示正式 PNG 和对应 JSON
+- 站点数据索引由 `python -m app.entrypoints.preview_page_index` 生成
+- 部署工作流：`.github/workflows/pages-preview.yml`
+
+本地生成 Pages 索引：
+
+`python -m app.entrypoints.preview_page_index`
+
+本地按某个 JSON 渲染预览图：
+
+`python -m app.entrypoints.preview_render --json-path static/news/2026-03-30.json --output /tmp/preview.png`
+
+`uv run --project . python -m app.entrypoints.preview_render --json-path static/news/2026-03-30.json --output static/images/preview.png`
 
 ## 数据访问地址
 
