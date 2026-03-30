@@ -172,7 +172,9 @@ pre {
 
 .preview-frame {
   position: relative;
-  display: flex;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 18px;
   min-height: 0;
   padding: 24px;
   overflow: hidden;
@@ -188,15 +190,18 @@ pre {
   pointer-events: none;
 }
 
-.preview-badge-block,
-.preview-toolbar {
-  position: absolute;
+.preview-topbar {
+  position: relative;
   z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 16px;
+  min-width: 0;
 }
 
 .preview-badge-block {
-  top: 22px;
-  left: 24px;
+  min-width: 0;
 }
 
 .preview-badge,
@@ -220,16 +225,15 @@ pre {
 .preview-date {
   font-size: clamp(28px, 3.8vw, 42px);
   line-height: 1.06;
+  overflow-wrap: anywhere;
 }
 
 .preview-toolbar {
-  top: 22px;
-  right: 24px;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
   gap: 10px;
-  max-width: 48%;
+  max-width: 100%;
 }
 
 .preview-toolbar button,
@@ -260,7 +264,7 @@ pre {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 92px 18px 18px;
+  padding: 0 18px 18px;
 }
 
 #preview-image {
@@ -316,8 +320,19 @@ pre {
     grid-template-columns: minmax(0, 1fr) 360px;
   }
 
+  .preview-topbar {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
   .preview-toolbar {
-    max-width: 56%;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 900px) {
+  .preview-date {
+    font-size: clamp(24px, 3.2vw, 34px);
   }
 }
 
@@ -342,20 +357,16 @@ pre {
     padding: 20px;
   }
 
-  .preview-badge-block,
-  .preview-toolbar {
-    position: static;
-  }
-
   .preview-frame {
-    display: grid;
-    grid-template-rows: auto auto minmax(0, 1fr);
     gap: 16px;
   }
 
   .preview-toolbar {
-    max-width: none;
     justify-content: flex-start;
+  }
+
+  .preview-date {
+    font-size: 28px;
   }
 
   .preview-canvas {
