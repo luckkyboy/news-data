@@ -67,13 +67,17 @@ def test_pages_preview_shell_exists() -> None:
     assert 'class="split-shell"' in html
     assert 'class="preview-pane"' in html
     assert 'class="inspector-pane"' in html
-    assert 'id="date-list"' in html
     assert 'id="preview-image"' in html
     assert 'id="json-panel"' in html
-    assert 'id="summary-panel"' in html
+    assert 'class="raw-json-panel"' in html
+    assert 'id="current-date-label"' not in html
+    assert 'id="date-list"' not in html
+    assert 'id="summary-panel"' not in html
     assert "new URLSearchParams" in js
     assert "themeByWeekday" in js
     assert "document.body.dataset.theme" in js
+    assert "renderDateList" not in js
+    assert "renderSummary" not in js
     assert "grid-template-columns: minmax(0, 1.55fr) 420px;" in css
     assert "object-fit: contain;" in css
     assert 'body[data-theme="warm"] {' in css

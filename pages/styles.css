@@ -209,9 +209,7 @@ pre {
   margin-bottom: 10px;
 }
 
-.preview-date,
-.summary-title,
-.inspector-date {
+.preview-date {
   margin: 0;
   font-family: "Iowan Old Style", "Songti SC", "Noto Serif SC", serif;
 }
@@ -232,8 +230,7 @@ pre {
 }
 
 .preview-toolbar button,
-.preview-toolbar a,
-.date-link {
+.preview-toolbar a {
   border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
   border-radius: 999px;
   padding: 10px 14px;
@@ -245,8 +242,7 @@ pre {
 }
 
 .preview-toolbar button:hover,
-.preview-toolbar a:hover,
-.date-link:hover {
+.preview-toolbar a:hover {
   background: var(--accent-soft);
   border-color: color-mix(in srgb, var(--accent) 40%, transparent);
   transform: translateY(-1px);
@@ -273,109 +269,21 @@ pre {
 
 .inspector-pane {
   display: grid;
-  grid-template-rows: auto auto minmax(0, 1fr);
-  gap: 14px;
+  grid-template-rows: minmax(0, 1fr);
   padding: 20px;
 }
 
-.inspector-head {
-  display: grid;
-  gap: 14px;
-}
-
-.inspector-title-block {
-  display: grid;
-  gap: 6px;
-}
-
-.inspector-date {
-  font-size: 30px;
-  line-height: 1.08;
-}
-
-.date-strip {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.date-link {
-  padding: 8px 12px;
-  font-size: 12px;
-  background: rgba(255, 255, 255, 0.36);
-}
-
-.date-link.is-active {
-  background: color-mix(in srgb, var(--accent) 18%, white 82%);
-  border-color: color-mix(in srgb, var(--accent) 45%, transparent);
-  color: color-mix(in srgb, var(--accent) 72%, var(--text) 28%);
-}
-
-.summary-panel,
 .raw-json-panel {
   border-radius: 24px;
   border: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.36);
-}
-
-.summary-panel {
-  display: grid;
-  gap: 12px;
-  padding: 18px;
-}
-
-.summary-header {
-  display: grid;
-  gap: 6px;
-}
-
-.summary-title {
-  font-size: 26px;
-  line-height: 1.08;
-}
-
-.summary-meta {
-  color: var(--muted);
-  font-size: 13px;
-}
-
-.summary-quote {
-  padding: 14px 16px;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.46);
-  border: 1px solid color-mix(in srgb, var(--accent) 18%, transparent);
-  color: var(--text);
-  font-size: 14px;
-  line-height: 1.72;
-}
-
-.summary-list {
-  display: grid;
-  gap: 10px;
-}
-
-.summary-item {
-  display: grid;
-  gap: 4px;
-}
-
-.summary-label {
-  color: var(--muted);
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-
-.summary-value {
-  font-size: 14px;
-  line-height: 1.6;
+  padding: 16px;
 }
 
 .raw-json-panel {
   min-height: 0;
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
-  padding: 16px;
 }
 
 .raw-json-head {
@@ -452,11 +360,5 @@ pre {
 
   .inspector-pane {
     min-height: 280px;
-  }
-
-  .date-strip {
-    flex-wrap: nowrap;
-    overflow: auto;
-    padding-bottom: 4px;
   }
 }

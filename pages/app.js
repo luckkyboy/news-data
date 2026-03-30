@@ -48,34 +48,6 @@ function themeNameForDate(date) {
   return themeByWeekday[(weekday + 6) % 7] ?? "cool";
 }
 
-function renderSummary(payload) {
-  const sourceText = Array.isArray(payload.sources) ? payload.sources.join(" / ") : "";
-  const quoteText = payload.quote || "暂无金句";
-
-  document.getElementById("summary-panel").innerHTML = `
-    <div class="summary-header">
-      <p class="eyebrow">Preview Summary</p>
-      <h2 class="summary-title">${escapeHtml(payload.title || payload.date || "")}</h2>
-      <div class="summary-meta">发布日期 ${escapeHtml(payload.publish_date || "-")}</div>
-    </div>
-    <div class="summary-quote">${escapeHtml(quoteText)}</div>
-    <div class="summary-list">
-      <div class="summary-item">
-        <div class="summary-label">Date</div>
-        <div class="summary-value">${escapeHtml(payload.date || "-")}</div>
-      </div>
-      <div class="summary-item">
-        <div class="summary-label">Sources</div>
-        <div class="summary-value">${escapeHtml(sourceText || "未提供")}</div>
-      </div>
-      <div class="summary-item">
-        <div class="summary-label">News Count</div>
-        <div class="summary-value">${Array.isArray(payload.news) ? payload.news.length : 0} 条</div>
-      </div>
-    </div>
-  `;
-}
-
 async function renderDate(date) {
   const item = getItemByDate(date);
   if (!item) {
@@ -86,7 +58,6 @@ async function renderDate(date) {
   writeUrl(date);
   document.body.dataset.theme = themeNameForDate(date);
 
-  document.getElementById("current-date-label").textContent = date;
   document.getElementById("stage-date-label").textContent = date;
   document.getElementById("preview-image").src = item.image_path;
   document.getElementById("open-image-link").href = item.image_path;
@@ -94,12 +65,7 @@ async function renderDate(date) {
 
   const response = await fetch(item.json_path);
   const payload = await response.json();
-  renderSummary(payload);
   document.getElementById("json-panel").textContent = JSON.stringify(payload, null, 2);
-
-  document.querySelectorAll(".date-link").forEach((element) => {
-    element.classList.toggle("is-active", element.dataset.date === date);
-  });
 }
 
 function bindNavigation() {
@@ -120,21 +86,6 @@ function bindNavigation() {
   });
 }
 
-function renderDateList() {
-  const container = document.getElementById("date-list");
-  container.innerHTML = "";
-
-  state.index.items.forEach((item) => {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "date-link";
-    button.dataset.date = item.date;
-    button.textContent = item.date;
-    button.addEventListener("click", () => renderDate(item.date));
-    container.appendChild(button);
-  });
-}
-
 async function loadIndex() {
   const response = await fetch("./data/index.json");
   return response.json();
@@ -142,15 +93,10 @@ async function loadIndex() {
 
 async function bootstrap() {
   state.index = await loadIndex();
-  renderDateList();
   bindNavigation();
   await renderDate(pickInitialDate(state.index));
 }
 
 bootstrap().catch((error) => {
-  const summary = document.getElementById("summary-panel");
-  if (summary) {
-    summary.innerHTML = '<div class="summary-header"><p class="eyebrow">Error</p><h2 class="summary-title">预览加载失败</h2></div>';
-  }
   document.getElementById("json-panel").textContent = String(error);
 });
