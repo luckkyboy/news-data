@@ -194,13 +194,15 @@ pre {
   position: relative;
   z-index: 2;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) minmax(340px, auto);
+  grid-template-areas: "badge actions";
   align-items: start;
   gap: 16px;
   min-width: 0;
 }
 
 .preview-badge-block {
+  grid-area: badge;
   min-width: 0;
 }
 
@@ -229,9 +231,10 @@ pre {
 }
 
 .preview-toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
+  grid-area: actions;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, max-content));
+  justify-content: end;
   gap: 10px;
   max-width: 100%;
 }
@@ -317,16 +320,19 @@ pre {
 @media (max-width: 1100px) {
   .split-shell {
     width: min(calc(100vw - 36px), 100%);
-    grid-template-columns: minmax(0, 1fr) 360px;
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 34vw);
   }
 
   .preview-topbar {
     grid-template-columns: 1fr;
+    grid-template-areas:
+      "badge"
+      "actions";
     gap: 12px;
   }
 
   .preview-toolbar {
-    justify-content: flex-start;
+    justify-content: start;
   }
 }
 
@@ -354,19 +360,41 @@ pre {
 
   .preview-frame {
     min-height: 0;
-    padding: 20px;
+    padding: 14px;
+    gap: 10px;
   }
 
-  .preview-frame {
-    gap: 16px;
+  .preview-topbar {
+    gap: 8px;
   }
 
   .preview-toolbar {
-    justify-content: flex-start;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    justify-content: stretch;
+    gap: 8px;
   }
 
   .preview-date {
-    font-size: 28px;
+    font-size: 22px;
+    line-height: 1.1;
+  }
+
+  .preview-badge,
+  .eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+  }
+
+  .preview-badge {
+    margin-bottom: 6px;
+  }
+
+  .preview-toolbar button,
+  .preview-toolbar a {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 12px;
+    text-align: center;
   }
 
   .preview-canvas {
@@ -374,6 +402,6 @@ pre {
   }
 
   .inspector-pane {
-    min-height: 280px;
+    min-height: clamp(220px, 30dvh, 280px);
   }
 }
