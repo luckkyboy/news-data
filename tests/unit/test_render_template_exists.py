@@ -75,10 +75,11 @@ def test_pages_preview_shell_exists() -> None:
     assert 'id="date-list"' not in html
     assert 'id="summary-panel"' not in html
     assert "new URLSearchParams" in js
+    assert 'const EARLIEST_DATE = "2026-03-26";' in js
     assert "themeByWeekday" in js
     assert "document.body.dataset.theme" in js
-    assert "renderDateList" not in js
-    assert "renderSummary" not in js
+    assert "findAvailableDate" in js
+    assert 'fetch("./data/index.json")' not in js
     assert "width: min(calc(100vw - 36px), 1620px);" in css
     assert "grid-template-columns: minmax(0, 1200px) 384px;" in css
     assert "justify-content: center;" in css

@@ -24,7 +24,7 @@ GitHub Pages 预览：
 - `app/infrastructure/parser`：文章 HTML 解析
 - `app/infrastructure/render`：基于模板 + Playwright 渲染图片
 - `app/infrastructure/storage`：静态资产读写（`static/news`、`static/images`）
-- `app/entrypoints`：运行入口（如 `run_daily_job.py`、`preview_render.py`、`preview_page_index.py`）
+- `app/entrypoints`：运行入口（如 `run_daily_job.py`、`preview_render.py`）
 - `config/accounts.yaml`：公众号账号配置
 - `.github/workflows/daily-fetch.yml`：定时任务与自动提交流程
 - `.github/workflows/pages-preview.yml`：GitHub Pages 预览站部署
@@ -60,12 +60,7 @@ GitHub Pages 预览：
 ## GitHub Pages 预览
 
 - 预览站展示正式 PNG 和对应 JSON
-- 站点数据索引由 `python -m app.entrypoints.preview_page_index` 生成
 - 部署工作流：`.github/workflows/pages-preview.yml`
-
-本地生成 Pages 索引：
-
-`python -m app.entrypoints.preview_page_index`
 
 本地按某个 JSON 渲染预览图：
 

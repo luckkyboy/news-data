@@ -40,4 +40,7 @@ def test_pages_preview_workflow_exists() -> None:
     content = workflow.read_text(encoding="utf-8")
     assert "actions/configure-pages" in content
     assert "actions/deploy-pages" in content
-    assert "python -m app.entrypoints.preview_page_index" in content
+    assert "cp -R static/news pages/static/news" in content
+    assert "cp -R static/images pages/static/images" in content
+    assert "actions/setup-python" not in content
+    assert "preview_page_index" not in content
