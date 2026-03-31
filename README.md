@@ -53,12 +53,11 @@ CDN 访问：
 
 主流程由 `python -m app.entrypoints.run_daily_job` 驱动：
 
-1. 读取环境变量 `WECHAT_TOKEN`、`WECHAT_COOKIE`
-2. 加载 `config/accounts.yaml` 中启用的账号并按优先级排序
-3. 根据目标日期拼接检索词（如 `3月27日 ...`）查询候选文章
-4. 选择目标文章并抓取 HTML，解析出新闻条目、来源、金句等
-5. 生成 `DailyNewsDocument`，渲染图片并写入 `static/images/YYYY-MM-DD.png`
-6. 回写文档到 `static/news/YYYY-MM-DD.json`，并填充 `image` CDN 地址
+1. 加载 `config/accounts.yaml` 中启用的账号并按优先级排序
+2. 根据目标日期拼接检索词（如 `3月27日 ...`）查询候选文章
+3. 选择目标文章并抓取 HTML，解析出新闻条目、来源、金句等
+4. 生成 `DailyNewsDocument`，渲染图片并写入 `static/images/YYYY-MM-DD.png`
+5. 回写文档到 `static/news/YYYY-MM-DD.json`，并填充 `image` CDN 地址
 
 幂等策略：
 
@@ -97,16 +96,11 @@ CDN 访问：
 
 `python -m playwright install --with-deps chromium`
 
-3. 配置环境变量（必须）：
-
-- `WECHAT_TOKEN`
-- `WECHAT_COOKIE`
-
-4. 执行当天任务：
+3. 执行当天任务：
 
 `python -m app.entrypoints.run_daily_job`
 
-5. 指定日期执行：
+4. 指定日期执行：
 
 `python -m app.entrypoints.run_daily_job --date 2026-03-27`
 
