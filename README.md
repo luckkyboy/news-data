@@ -17,20 +17,17 @@ GitHub Pages 预览：
 
 CDN 访问：
 
-- JSON：`https://cdn.jsdelivr.net/gh/luckkyboy/news-data@main/static/news/YYYY-MM-DD.json`
-- 图片：`https://cdn.jsdelivr.net/gh/luckkyboy/news-data@main/static/images/YYYY-MM-DD.png`
-
-原始访问：
-
-- JSON：`https://luckkyboy.github.io/news-data/static/news/YYYY-MM-DD.json`
-- 图片：`https://luckkyboy.github.io/news-data/static/images/YYYY-MM-DD.png`
+- jsdmirror JSON：`https://cdn.jsdmirror.com/gh/luckkyboy/news-data@main/static/news/YYYY-MM-DD.json`
+- jsdmirror 图片：`https://cdn.jsdmirror.com/gh/luckkyboy/news-data@main/static/images/YYYY-MM-DD.png`
+- jsDelivr JSON：`https://cdn.jsdelivr.net/gh/luckkyboy/news-data@main/static/news/YYYY-MM-DD.json`
+- jsDelivr 图片：`https://cdn.jsdelivr.net/gh/luckkyboy/news-data@main/static/images/YYYY-MM-DD.png`
 
 示例（2026-03-27）：
 
-- CDN JSON：`https://cdn.jsdelivr.net/gh/luckkyboy/news-data@main/static/news/2026-03-27.json`
-- CDN 图片：`https://cdn.jsdelivr.net/gh/luckkyboy/news-data@main/static/images/2026-03-27.png`
-- 原始 JSON：`https://luckkyboy.github.io/news-data/static/news/2026-03-27.json`
-- 原始图片：`https://luckkyboy.github.io/news-data/static/images/2026-03-27.png`
+- jsdmirror JSON：`https://cdn.jsdmirror.com/gh/luckkyboy/news-data@main/static/news/2026-03-27.json`
+- jsdmirror 图片：`https://cdn.jsdmirror.com/gh/luckkyboy/news-data@main/static/images/2026-03-27.png`
+- jsDelivr JSON：`https://cdn.jsdelivr.net/gh/luckkyboy/news-data@main/static/news/2026-03-27.json`
+- jsDelivr 图片：`https://cdn.jsdelivr.net/gh/luckkyboy/news-data@main/static/images/2026-03-27.png`
 
 ## 项目结构
 
@@ -77,7 +74,7 @@ CDN 访问：
 
 ## GitHub Pages 预览
 
-- 预览站展示正式 PNG 和对应 JSON
+- 预览站通过 CDN 加载正式 PNG 和对应 JSON
 - 部署工作流：`.github/workflows/pages-preview.yml`
 
 本地按某个 JSON 渲染预览图：
