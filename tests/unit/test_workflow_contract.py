@@ -40,7 +40,13 @@ def test_pages_preview_workflow_exists() -> None:
     content = workflow.read_text(encoding="utf-8")
     assert "actions/configure-pages" in content
     assert "actions/deploy-pages" in content
-    assert "cp -R static/news pages/static/news" in content
-    assert "cp -R static/images pages/static/images" in content
+    assert '- "pages/**"' in content
+    assert '- ".github/workflows/pages-preview.yml"' in content
+    assert '- "static/news/**"' not in content
+    assert '- "static/images/**"' not in content
+    assert "Prepare Pages artifact" not in content
+    assert "cp -R static/news pages/static/news" not in content
+    assert "cp -R static/images pages/static/images" not in content
+    assert "path: pages" in content
     assert "actions/setup-python" not in content
     assert "preview_page_index" not in content

@@ -75,6 +75,7 @@ CDN 访问：
 ## GitHub Pages 预览
 
 - 预览站通过 CDN 加载正式 PNG 和对应 JSON
+- Pages artifact 仅包含 `pages/` 下的静态壳子，不再打包 `static/news` 与 `static/images`
 - 部署工作流：`.github/workflows/pages-preview.yml`
 
 本地按某个 JSON 渲染预览图：
