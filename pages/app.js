@@ -16,7 +16,8 @@ const themeByWeekday = [
   "citrus",
 ];
 const payloadCache = new Map();
-const JSON_CDN_BASE = "https://cdn.jsdelivr.net/gh/luckkyboy/news-data@main/static/news";
+const JSON_CDN_BASE = "https://cdn.jsdmirror.com/gh/luckkyboy/news-data@main/static/news";
+const IMAGE_CDN_BASE = "https://cdn.jsdmirror.com/gh/luckkyboy/news-data@main/static/images";
 const beijingDateFormatter = new Intl.DateTimeFormat("en-CA", {
   timeZone: "Asia/Shanghai",
   year: "numeric",
@@ -108,6 +109,7 @@ function offsetDateString(date, days) {
 function buildPaths(date) {
   return {
     jsonPath: `${JSON_CDN_BASE}/${date}.json`,
+    imagePath: `${IMAGE_CDN_BASE}/${date}.png`,
   };
 }
 
@@ -124,7 +126,7 @@ async function loadPayload(date) {
   const payloadEntry = {
     payload,
     jsonPath,
-    imagePath: payload.image || "",
+    imagePath,
   };
   payloadCache.set(date, payloadEntry);
   return payloadEntry;

@@ -15,7 +15,7 @@ const source = {json.dumps(app_js)} + "\\n;globalThis.__appTest = {{ state, rend
 const fetchLog = [];
 const responses = new Map([
   [
-    "https://cdn.jsdelivr.net/gh/luckkyboy/news-data@main/static/news/2026-03-31.json",
+    "https://cdn.jsdmirror.com/gh/luckkyboy/news-data@main/static/news/2026-03-31.json",
     {{
       ok: true,
       json: async () => ({{
@@ -120,13 +120,13 @@ if (result.currentDate !== "2026-03-31") {{
 if (result.nextDisabled !== true) {{
   throw new Error(`expected next button disabled, got ${{result.nextDisabled}} with fetches ${{JSON.stringify(result.fetchLog)}}`);
 }}
-if (result.previewImageSrc !== "https://cdn.example.com/news/2026-03-31.png") {{
-  throw new Error(`expected preview image from payload.image, got ${{result.previewImageSrc}}`);
+if (result.previewImageSrc !== "https://cdn.jsdmirror.com/gh/luckkyboy/news-data@main/static/images/2026-03-31.png") {{
+  throw new Error(`expected preview image from date-based CDN path, got ${{result.previewImageSrc}}`);
 }}
-if (result.openImageHref !== "https://cdn.example.com/news/2026-03-31.png") {{
-  throw new Error(`expected open image href from payload.image, got ${{result.openImageHref}}`);
+if (result.openImageHref !== "https://cdn.jsdmirror.com/gh/luckkyboy/news-data@main/static/images/2026-03-31.png") {{
+  throw new Error(`expected open image href from date-based CDN path, got ${{result.openImageHref}}`);
 }}
-if (result.openJsonHref !== "https://cdn.jsdelivr.net/gh/luckkyboy/news-data@main/static/news/2026-03-31.json") {{
+if (result.openJsonHref !== "https://cdn.jsdmirror.com/gh/luckkyboy/news-data@main/static/news/2026-03-31.json") {{
   throw new Error(`expected open json href to use CDN, got ${{result.openJsonHref}}`);
 }}
 if (result.fetchLog.length !== 2) {{
@@ -146,6 +146,14 @@ if (result.fetchLog.length !== 2) {{
 def test_pages_app_uses_beijing_timezone_for_current_date() -> None:
     app_js = Path("pages/app.js").read_text(encoding="utf-8")
 
+    assert (
+        'const JSON_CDN_BASE = "https://cdn.jsdmirror.com/gh/luckkyboy/news-data@main/static/news"'
+        in app_js
+    )
+    assert (
+        'const IMAGE_CDN_BASE = "https://cdn.jsdmirror.com/gh/luckkyboy/news-data@main/static/images"'
+        in app_js
+    )
     assert 'timeZone: "Asia/Shanghai"' in app_js
     assert "function todayInBeijing()" in app_js
     assert 'return params.get("date") || todayInBeijing();' in app_js
