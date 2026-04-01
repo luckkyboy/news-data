@@ -86,6 +86,12 @@ def test_pages_preview_shell_exists() -> None:
     assert "justify-content: center;" in css
     assert 'grid-template-areas: "badge actions";' in css
     assert "grid-template-columns: repeat(2, minmax(0, max-content));" in css
+    toolbar_button_section = css.split(".preview-toolbar button,\n.preview-toolbar a {", maxsplit=1)[1].split(
+        "}",
+        maxsplit=1,
+    )[0]
+    assert "justify-content: center;" in toolbar_button_section
+    assert "align-items: center;" in toolbar_button_section
     assert "grid-template-columns: minmax(0, 1fr) minmax(300px, 34vw);" in css
     assert 'grid-template-areas:\n      "badge"\n      "actions";' in css
     assert "grid-template-columns: repeat(2, minmax(0, 1fr));" in css

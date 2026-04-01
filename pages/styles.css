@@ -241,6 +241,9 @@ pre {
 
 .preview-toolbar button,
 .preview-toolbar a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
   border-radius: 999px;
   padding: 10px 14px;
