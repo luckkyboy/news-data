@@ -2,6 +2,8 @@ const EARLIEST_DATE = "2026-03-26";
 
 const state = {
   currentDate: "",
+  latestAvailableDate: "",
+  latestCheckedDate: "",
 };
 
 const themeByWeekday = [
@@ -13,6 +15,14 @@ const themeByWeekday = [
   "warm",
   "citrus",
 ];
+const payloadCache = new Map();
+const JSON_CDN_BASE = "https://cdn.jsdelivr.net/gh/luckkyboy/news-data@main/static/news";
+const beijingDateFormatter = new Intl.DateTimeFormat("en-CA", {
+  timeZone: "Asia/Shanghai",
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+});
 
 function parseDateParts(date) {
   const [year, month, day] = String(date)
@@ -32,9 +42,20 @@ function formatDate(date) {
   ].join("-");
 }
 
+function todayInBeijing() {
+  const parts = beijingDateFormatter.formatToParts(new Date());
+  const year = parts.find((part) => part.type === "year")?.value;
+  const month = parts.find((part) => part.type === "month")?.value;
+  const day = parts.find((part) => part.type === "day")?.value;
+  if (!year || !month || !day) {
+    return formatDate(new Date());
+  }
+  return `${year}-${month}-${day}`;
+}
+
 function pickInitialDate() {
   const params = new URLSearchParams(window.location.search);
-  return params.get("date") || formatDate(new Date());
+  return params.get("date") || todayInBeijing();
 }
 
 function writeUrl(date) {
@@ -59,7 +80,11 @@ function clampDate(date) {
     return date;
   }
   const earliestDate = new Date(earliest.year, earliest.month - 1, earliest.day);
-  const today = new Date();
+  const todayParts = parseDateParts(todayInBeijing());
+  if (!todayParts) {
+    return date;
+  }
+  const today = new Date(todayParts.year, todayParts.month - 1, todayParts.day);
   const latestDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
   if (date < earliestDate) {
     return earliestDate;
@@ -82,22 +107,27 @@ function offsetDateString(date, days) {
 
 function buildPaths(date) {
   return {
-    jsonPath: `./static/news/${date}.json`,
-    imagePath: `./static/images/${date}.png`,
+    jsonPath: `${JSON_CDN_BASE}/${date}.json`,
   };
 }
 
 async function loadPayload(date) {
+  if (payloadCache.has(date)) {
+    return payloadCache.get(date);
+  }
   const { jsonPath, imagePath } = buildPaths(date);
   const response = await fetch(jsonPath, { cache: "no-store" });
   if (!response.ok) {
     throw new Error(`missing:${date}`);
   }
-  return {
-    payload: await response.json(),
+  const payload = await response.json();
+  const payloadEntry = {
+    payload,
     jsonPath,
-    imagePath,
+    imagePath: payload.image || "",
   };
+  payloadCache.set(date, payloadEntry);
+  return payloadEntry;
 }
 
 async function findAvailableDate(startDate, step) {
@@ -129,7 +159,18 @@ function syncNavigationButtons() {
   const prevButton = document.getElementById("prev-button");
   const nextButton = document.getElementById("next-button");
   prevButton.disabled = state.currentDate <= EARLIEST_DATE;
-  nextButton.disabled = state.currentDate >= formatDate(clampDate(new Date()));
+  nextButton.disabled = state.currentDate >= (state.latestAvailableDate || state.currentDate);
+}
+
+async function refreshLatestAvailableDate() {
+  const today = formatDate(clampDate(new Date()));
+  if (state.latestCheckedDate === today && state.latestAvailableDate) {
+    return state.latestAvailableDate;
+  }
+
+  state.latestCheckedDate = today;
+  state.latestAvailableDate = (await findAvailableDate(today, -1)) || "";
+  return state.latestAvailableDate;
 }
 
 async function renderDate(date) {
@@ -141,6 +182,10 @@ async function renderDate(date) {
   const { payload, jsonPath, imagePath } = await loadPayload(resolvedDate);
 
   state.currentDate = resolvedDate;
+  const latestAvailableDate = await refreshLatestAvailableDate();
+  if (!latestAvailableDate || resolvedDate > latestAvailableDate) {
+    state.latestAvailableDate = resolvedDate;
+  }
   writeUrl(resolvedDate);
   document.body.dataset.theme = themeNameForDate(resolvedDate);
 
