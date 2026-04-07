@@ -35,9 +35,9 @@
         --quote-text-color: #334155;
         --footer-bg: #f8fbff;
         --footer-accent-bar: #7dd3fc;
-        --hero-meta-size: 27px;
+        --hero-meta-size: 30px;
         --hero-meta-weight: 800;
-        --news-font-size: 30px;
+        --news-font-size: 32px;
         --news-item-gap: 8px;
         --footer-font-size: 24px;
         --footer-font-weight: 800;
@@ -273,9 +273,12 @@
       }
       .hero-meta {
         margin-top: 12px;
-        color: var(--muted);
+        color: var(--muted-strong);
         font-size: var(--hero-meta-size);
         font-weight: var(--hero-meta-weight);
+      }
+      .hero-meta-separator {
+        color: var(--accent);
       }
       .content {
         padding: 8px 34px 10px;
@@ -322,8 +325,8 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 0 56px 0;
-        height: 128px;
+        min-height: 128px;
+        padding: 22px 56px;
         margin-bottom: 8px;
         border-top: 1px solid var(--line);
         border-bottom: 1px solid var(--line);
@@ -356,7 +359,7 @@
         max-width: 76%;
         color: var(--quote-text-color);
         text-align: center;
-        font-size: 29px;
+        font-size: 30px;
         font-weight: 700;
         line-height: 1.45;
         font-style: italic;

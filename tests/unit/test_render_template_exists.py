@@ -22,6 +22,8 @@ def test_render_template_partials_exist() -> None:
     assert (root / "partials/content.html").exists()
     assert (root / "partials/quote.html").exists()
     assert (root / "partials/footer.html").exists()
+    hero_partial = (root / "partials/hero.html").read_text(encoding="utf-8")
+    assert 'class="hero-meta-separator"' in hero_partial
 
 
 def test_base_template_uses_adaptive_height_layout_contract() -> None:
@@ -42,12 +44,16 @@ def test_base_template_uses_adaptive_height_layout_contract() -> None:
     assert "overflow: hidden;" not in content_section
     assert ".quote-zone {" in content
     assert "margin-bottom: 8px;" in content
-    assert "padding: 0 56px 0;" in quote_zone_section
+    assert "padding: 22px 56px;" in quote_zone_section
+    assert "min-height: 128px;" in quote_zone_section
+    assert "\n        height: 128px;" not in quote_zone_section
     assert "position: relative;" in quote_shell_section
     assert "display: flex;" in quote_shell_section
     assert "transform: translateY(-50%) skewX(-12deg);" in quote_mark_section
     assert "max-width: 76%;" in quote_text_section
     assert "font-style: italic;" in quote_text_section
+    assert "color: var(--muted-strong);" in content.split(".hero-meta {", maxsplit=1)[1].split("}", maxsplit=1)[0]
+    assert "color: var(--accent);" in content.split(".hero-meta-separator {", maxsplit=1)[1].split("}", maxsplit=1)[0]
     assert '<body data-theme="{{ theme_name }}">' in content
     assert 'body[data-theme="warm"] {' in content
     assert 'body[data-theme="forest"] {' in content
@@ -56,6 +62,9 @@ def test_base_template_uses_adaptive_height_layout_contract() -> None:
     assert 'body[data-theme="rose"] {' in content
     assert 'body[data-theme="citrus"] {' in content
     assert "--accent: #ef7d00;" in content
+    assert "--hero-meta-size: 30px;" in content
+    assert "--news-font-size: 32px;" in content
+    assert "font-size: 30px;" in quote_text_section
 
 
 def test_pages_preview_shell_exists() -> None:

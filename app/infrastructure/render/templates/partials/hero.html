@@ -1,6 +1,13 @@
 <section class="hero">
   <div class="hero-main">
     <p class="brand">每日<span class="brand-accent">简报</span></p>
-    <div id="hero-meta" class="hero-meta">{{ hero_meta_text }}</div>
+    <div id="hero-meta" class="hero-meta">
+      {% for part in hero_meta_parts %}
+      <span class="hero-meta-part">{{ part }}</span>
+      {% if not loop.last %}
+      <span class="hero-meta-separator" aria-hidden="true"> / </span>
+      {% endif %}
+      {% endfor %}
+    </div>
   </div>
 </section>

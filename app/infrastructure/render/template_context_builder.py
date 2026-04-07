@@ -11,6 +11,7 @@ class NewsTemplateContext(TypedDict):
     font_face_css: str
     theme_name: str
     hero_meta_text: str
+    hero_meta_parts: list[str]
     news_items: list[str]
     quote_text: str
     source_text: str
@@ -42,6 +43,7 @@ class DailyNewsTemplateContextBuilder:
             "font_face_css": font_face_css,
             "theme_name": self._theme_name_for_date_parts(date_parts),
             "hero_meta_text": self._build_hero_meta_text(document),
+            "hero_meta_parts": self._build_hero_meta_parts(document),
             "news_items": document.news,
             "quote_text": document.quote.strip(),
             "source_text": "/".join(document.sources),
@@ -51,6 +53,9 @@ class DailyNewsTemplateContextBuilder:
         }
 
     def _build_hero_meta_text(self, document: DailyNewsDocument) -> str:
+        return " / ".join(self._build_hero_meta_parts(document))
+
+    def _build_hero_meta_parts(self, document: DailyNewsDocument) -> list[str]:
         date_parts = self._parse_date_parts(document.date)
         date_text = (
             f"{date_parts[0]}年{date_parts[1]}月{date_parts[2]}日"
@@ -59,7 +64,7 @@ class DailyNewsTemplateContextBuilder:
         )
         weekday_text = self._format_chinese_weekday(date_parts)
         lunar_text = self._build_lunar_display(document.date, document.title)
-        return " / ".join(part for part in (date_text, weekday_text, lunar_text) if part)
+        return [part for part in (date_text, weekday_text, lunar_text) if part]
 
     def _build_updated_text(self, value: str) -> str:
         if not value:
