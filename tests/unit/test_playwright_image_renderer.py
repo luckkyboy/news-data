@@ -36,9 +36,9 @@ def test_build_html_injects_document_fields() -> None:
     assert "2026年3月27日" in html
     assert "更新于 2026-03-27 06:30" in html
     assert 'data-theme="rose"' in html
-    assert "--hero-meta-size: 30px;" in html
-    assert "--news-font-size: 32px;" in html
-    assert "font-size: 30px;" in html
+    assert "--hero-meta-size: 34px;" in html
+    assert "--news-font-size: 38px;" in html
+    assert "font-size: 34px;" in html
     assert "color: var(--muted-strong);" in html
     assert "color: var(--accent);" in html
 
@@ -94,10 +94,10 @@ def test_build_html_uses_adaptive_card_height_layout() -> None:
     assert "height: 1800px;" not in html
     assert "grid-template-rows:" not in html
     assert ".quote-zone {" in html
-    assert "margin-bottom: 8px;" in html
-    assert "padding: 22px 56px;" in html
-    assert "min-height: 128px;" in html
-    assert "\n        height: 128px;" not in html
+    assert "margin-bottom: 0;" in html
+    assert "padding: 14px 42px 16px;" in html
+    assert "min-height: 104px;" in html
+    assert "\n        height: 104px;" not in html
     assert ".quote-shell {" in html
     assert "position: relative;" in html
     assert "font-style: italic;" in html
