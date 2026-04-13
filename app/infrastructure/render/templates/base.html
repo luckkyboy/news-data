@@ -35,11 +35,11 @@
         --quote-text-color: #334155;
         --footer-bg: #f8fbff;
         --footer-accent-bar: #7dd3fc;
-        --hero-meta-size: 34px;
+        --hero-meta-size: 38px;
         --hero-meta-weight: 800;
-        --news-font-size: 38px;
+        --news-font-size: 42px;
         --news-item-gap: 10px;
-        --footer-font-size: 22px;
+        --footer-font-size: 30px;
         --footer-font-weight: 800;
         --footer-line-height: 1.25;
         --footer-edge-gap: 12px;
@@ -252,7 +252,7 @@
         justify-content: center;
         align-items: center;
         gap: 12px;
-        padding: 22px 42px 20px;
+        padding: 10px 42px 5px;
         border-bottom: 1px solid var(--line);
         background:
           linear-gradient(92deg, var(--hero-bg-1) 0%, var(--hero-bg-2) 45%, var(--hero-bg-3) 100%);
@@ -264,7 +264,7 @@
       .brand {
         margin: 0;
         letter-spacing: 0.015em;
-        font-size: 76px;
+        font-size: 88px;
         font-weight: 800;
         line-height: 1;
       }
@@ -282,43 +282,45 @@
         color: var(--accent);
       }
       .content {
-        padding: 18px 30px 12px;
+        padding: 18px 25px 12px 15px;
       }
       ol {
         margin: 0;
         padding: 0;
         list-style: none;
-        counter-reset: brief-item;
         font-size: var(--news-font-size);
         line-height: 1.36;
         font-weight: 700;
       }
       li {
-        counter-increment: brief-item;
-        position: relative;
         margin: 0;
-        padding: 16px 20px 16px 98px;
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        align-items: center;
+        column-gap: 5px;
+      }
+      .news-index {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 64px;
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: var(--badge-bg);
+        color: var(--badge-text);
+        font-size: 34px;
+        font-weight: 800;
+        line-height: 1;
+        text-align: center;
+      }
+      .news-item-body {
+        min-width: 0;
+        padding: 5px 25px;
         border: 1px solid var(--news-border);
         background: linear-gradient(180deg, var(--news-surface-top) 0%, var(--news-surface-bottom) 100%);
         border-radius: 18px;
         color: var(--news-text);
         box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
-      }
-      li::before {
-        content: counter(brief-item, decimal-leading-zero);
-        position: absolute;
-        left: 20px;
-        top: 50%;
-        transform: translateY(-50%);
-        min-width: 56px;
-        padding: 4px 12px;
-        border-radius: 999px;
-        background: var(--badge-bg);
-        color: var(--badge-text);
-        font-size: 26px;
-        font-weight: 800;
-        line-height: 1.35;
-        text-align: center;
       }
       li + li {
         margin-top: var(--news-item-gap);
@@ -328,7 +330,7 @@
         align-items: center;
         justify-content: center;
         min-height: 104px;
-        padding: 14px 42px 16px;
+        padding: 5px 42px 5px;
         margin-bottom: 0;
         border-top: 1px solid var(--line);
         border-bottom: 1px solid var(--line);
@@ -346,7 +348,7 @@
         top: 50%;
         transform: translateY(-50%) skewX(-12deg);
         color: var(--quote-mark);
-        font-size: 52px;
+        font-size: 66px;
         font-weight: 800;
         line-height: 1;
       }
@@ -361,7 +363,7 @@
         max-width: 84%;
         color: var(--quote-text-color);
         text-align: center;
-        font-size: 34px;
+        font-size: 40px;
         font-weight: 700;
         line-height: 1.35;
         font-style: italic;
@@ -386,6 +388,7 @@
         font-size: var(--footer-font-size);
         font-weight: var(--footer-font-weight);
         line-height: var(--footer-line-height);
+        white-space: nowrap;
       }
       .footer-text-strong {
         color: var(--muted-strong);
@@ -405,7 +408,7 @@
       .footer-meta {
         grid-area: left-bottom;
         display: inline-flex;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         gap: 14px;
         padding-left: 14px;
         border-left: 4px solid var(--footer-accent-bar);
@@ -455,12 +458,15 @@
           font-size: 18px;
         }
         li {
-          padding: 10px 10px 10px 52px;
+          column-gap: 8px;
         }
-        li::before {
-          left: 10px;
+        .news-index {
           min-width: 28px;
+          padding: 4px 6px;
           font-size: 14px;
+        }
+        .news-item-body {
+          padding: 10px;
         }
       }
     </style>

@@ -1,7 +1,10 @@
 <section class="content">
   <ol id="news-list">
     {% for item in news_items %}
-    <li>{{ item }}</li>
+    <li>
+      <span class="news-index">{{ "%02d"|format(loop.index) }}</span>
+      <div class="news-item-body">{{ item }}</div>
+    </li>
     {% endfor %}
   </ol>
 </section>

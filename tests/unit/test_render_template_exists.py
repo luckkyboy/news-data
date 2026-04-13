@@ -44,7 +44,7 @@ def test_base_template_uses_adaptive_height_layout_contract() -> None:
     assert "overflow: hidden;" not in content_section
     assert ".quote-zone {" in content
     assert "margin-bottom: 0;" in content
-    assert "padding: 14px 42px 16px;" in quote_zone_section
+    assert "padding: 5px 42px 5px;" in quote_zone_section
     assert "min-height: 104px;" in quote_zone_section
     assert "\n        height: 104px;" not in quote_zone_section
     assert "position: relative;" in quote_shell_section
@@ -62,9 +62,9 @@ def test_base_template_uses_adaptive_height_layout_contract() -> None:
     assert 'body[data-theme="rose"] {' in content
     assert 'body[data-theme="citrus"] {' in content
     assert "--accent: #ef7d00;" in content
-    assert "--hero-meta-size: 34px;" in content
-    assert "--news-font-size: 38px;" in content
-    assert "font-size: 34px;" in quote_text_section
+    assert "--hero-meta-size: 38px;" in content
+    assert "--news-font-size: 42px;" in content
+    assert "font-size: 40px;" in quote_text_section
 
 
 def test_pages_preview_shell_exists() -> None:

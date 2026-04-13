@@ -24,7 +24,8 @@ def test_build_html_injects_document_fields() -> None:
 
     html = renderer.build_html(document)
 
-    assert "<li>第一条</li>" in html
+    assert '<span class="news-index">01</span>' in html
+    assert '<div class="news-item-body">第一条</div>' in html
     assert '<div id="quote" class="quote-shell">' in html
     assert '<span class="hero-meta-part">2026年3月27日</span>' in html
     assert '<span class="hero-meta-separator" aria-hidden="true"> / </span>' in html
@@ -36,9 +37,9 @@ def test_build_html_injects_document_fields() -> None:
     assert "2026年3月27日" in html
     assert "更新于 2026-03-27 06:30" in html
     assert 'data-theme="rose"' in html
-    assert "--hero-meta-size: 34px;" in html
-    assert "--news-font-size: 38px;" in html
-    assert "font-size: 34px;" in html
+    assert "--hero-meta-size: 38px;" in html
+    assert "--news-font-size: 42px;" in html
+    assert "font-size: 40px;" in html
     assert "color: var(--muted-strong);" in html
     assert "color: var(--accent);" in html
 
@@ -95,7 +96,7 @@ def test_build_html_uses_adaptive_card_height_layout() -> None:
     assert "grid-template-rows:" not in html
     assert ".quote-zone {" in html
     assert "margin-bottom: 0;" in html
-    assert "padding: 14px 42px 16px;" in html
+    assert "padding: 5px 42px 5px;" in html
     assert "min-height: 104px;" in html
     assert "\n        height: 104px;" not in html
     assert ".quote-shell {" in html
