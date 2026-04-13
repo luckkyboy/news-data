@@ -75,8 +75,9 @@ def test_pages_preview_shell_exists() -> None:
     assert 'data-theme="cool"' in html
     assert 'class="split-shell"' in html
     assert 'class="preview-pane"' in html
-    assert 'class="inspector-pane"' in html
     assert 'class="preview-topbar"' in html
+    assert 'class="preview-stage-shell"' in html
+    assert 'class="preview-stage"' in html
     assert 'id="preview-image"' in html
     assert 'id="json-panel"' in html
     assert 'class="raw-json-panel"' in html
@@ -90,22 +91,32 @@ def test_pages_preview_shell_exists() -> None:
     assert "findAvailableDate" in js
     assert "syncNavigationButtons" in js
     assert 'fetch("./data/index.json")' not in js
-    assert "width: min(calc(100vw - 36px), 1620px);" in css
-    assert "grid-template-columns: minmax(0, 1200px) 384px;" in css
-    assert "justify-content: center;" in css
-    assert 'grid-template-areas: "badge actions";' in css
-    assert "grid-template-columns: repeat(2, minmax(0, max-content));" in css
+    assert "width: min(calc(100vw - 36px), 1420px);" in css
+    assert "grid-template-columns: minmax(0, 1fr);" in css
+    assert ".preview-topbar {" in css
+    assert "grid-template-columns: repeat(4, minmax(0, max-content));" in css
+    assert ".preview-stage-shell {" in css
+    assert ".preview-stage {" in css
+    assert "grid-template-columns: minmax(0, 1.18fr) minmax(360px, 0.92fr);" in css
+    assert ".preview-image-shell {" in css
     toolbar_button_section = css.split(".preview-toolbar button,\n.preview-toolbar a {", maxsplit=1)[1].split(
         "}",
         maxsplit=1,
     )[0]
     assert "justify-content: center;" in toolbar_button_section
     assert "align-items: center;" in toolbar_button_section
-    assert "grid-template-columns: minmax(0, 1fr) minmax(300px, 34vw);" in css
-    assert 'grid-template-areas:\n      "badge"\n      "actions";' in css
+    assert "@media (max-width: 980px)" in css
+    assert 'grid-template-columns: 1fr;' in css
     assert "grid-template-columns: repeat(2, minmax(0, 1fr));" in css
     assert "min-height: clamp(220px, 30dvh, 280px);" in css
     assert ".preview-toolbar button:disabled {" in css
     assert "object-fit: contain;" in css
     assert 'body[data-theme="warm"] {' in css
     assert "@media (max-width: 768px)" in css
+
+
+def test_pages_app_formats_preview_date_for_vertical_layout() -> None:
+    app_js = Path("pages/app.js").read_text(encoding="utf-8")
+
+    assert "function formatStageDate(date)" not in app_js
+    assert 'document.getElementById("stage-date-label")' not in app_js

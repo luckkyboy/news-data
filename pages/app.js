@@ -191,7 +191,6 @@ async function renderDate(date) {
   writeUrl(resolvedDate);
   document.body.dataset.theme = themeNameForDate(resolvedDate);
 
-  document.getElementById("stage-date-label").textContent = resolvedDate;
   document.getElementById("preview-image").src = imagePath;
   document.getElementById("open-image-link").href = imagePath;
   document.getElementById("open-json-link").href = jsonPath;

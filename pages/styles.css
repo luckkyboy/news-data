@@ -13,6 +13,7 @@
   --panel-shadow: 0 20px 52px rgba(15, 23, 42, 0.08);
   --image-wash: rgba(255, 255, 255, 0.58);
   --json-code-bg: rgba(255, 255, 255, 0.54);
+  --preview-panel-width: 520px;
 }
 
 body[data-theme="warm"] {
@@ -142,41 +143,42 @@ pre {
 
 .split-shell {
   height: 100dvh;
-  width: min(calc(100vw - 36px), 1620px);
+  width: min(calc(100vw - 36px), 1420px);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: minmax(0, 1200px) 384px;
-  justify-content: center;
-  gap: 18px;
-  padding: 18px 0;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  padding: 24px 0;
 }
 
-.preview-pane,
-.inspector-pane {
+.preview-pane {
   min-height: 0;
   min-width: 0;
 }
 
 .preview-pane {
   display: flex;
+  justify-content: center;
 }
 
-.preview-frame,
-.inspector-pane {
-  width: 100%;
-  border-radius: 30px;
-  border: 1px solid var(--line);
-  background: linear-gradient(180deg, var(--surface-strong), var(--surface));
-  box-shadow: var(--panel-shadow);
+.preview-frame {
+  width: min(100%, 1320px);
+  border-radius: 34px;
+  border: 1px solid color-mix(in srgb, var(--line) 82%, #f6d79a 18%);
+  background:
+    linear-gradient(180deg, rgba(255, 253, 247, 0.96), rgba(255, 250, 242, 0.94)),
+    linear-gradient(135deg, rgba(251, 191, 36, 0.05), transparent 42%);
+  box-shadow:
+    0 26px 60px rgba(15, 23, 42, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
 }
 
 .preview-frame {
   position: relative;
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
-  gap: 18px;
   min-height: 0;
-  padding: 24px;
+  padding: 0;
   overflow: hidden;
 }
 
@@ -185,25 +187,9 @@ pre {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at top left, var(--glow-1), transparent 28%),
-    linear-gradient(180deg, var(--image-wash), rgba(255, 255, 255, 0.08));
+    radial-gradient(circle at 12% 10%, rgba(251, 191, 36, 0.1), transparent 22%),
+    radial-gradient(circle at 92% 8%, rgba(148, 163, 184, 0.1), transparent 18%);
   pointer-events: none;
-}
-
-.preview-topbar {
-  position: relative;
-  z-index: 2;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(340px, auto);
-  grid-template-areas: "badge actions";
-  align-items: start;
-  gap: 16px;
-  min-width: 0;
-}
-
-.preview-badge-block {
-  grid-area: badge;
-  min-width: 0;
 }
 
 .preview-badge,
@@ -219,24 +205,26 @@ pre {
   margin-bottom: 10px;
 }
 
-.preview-date {
-  margin: 0;
-  font-family: "Iowan Old Style", "Songti SC", "Noto Serif SC", serif;
-}
-
-.preview-date {
-  font-size: clamp(28px, 3.8vw, 42px);
-  line-height: 1.06;
-  overflow-wrap: anywhere;
+.preview-topbar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  padding: 22px 22px 0;
 }
 
 .preview-toolbar {
-  grid-area: actions;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, max-content));
-  justify-content: end;
-  gap: 10px;
+  grid-template-columns: repeat(4, minmax(0, max-content));
+  justify-content: center;
+  align-content: start;
+  gap: 12px;
   max-width: 100%;
+  padding: 8px;
+  border: 1px solid rgba(217, 119, 6, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 251, 235, 0.82);
+  box-shadow: 0 10px 26px rgba(217, 119, 6, 0.08);
 }
 
 .preview-toolbar button,
@@ -244,11 +232,11 @@ pre {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
+  border: 1px solid rgba(217, 119, 6, 0.14);
   border-radius: 999px;
-  padding: 10px 14px;
-  background: rgba(255, 255, 255, 0.42);
-  color: var(--text);
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.78);
+  color: color-mix(in srgb, var(--text) 88%, #7c2d12 12%);
   text-decoration: none;
   cursor: pointer;
   transition: background-color 160ms ease, border-color 160ms ease, transform 160ms ease;
@@ -256,8 +244,8 @@ pre {
 
 .preview-toolbar button:hover,
 .preview-toolbar a:hover {
-  background: var(--accent-soft);
-  border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+  background: rgba(255, 247, 237, 0.98);
+  border-color: rgba(217, 119, 6, 0.26);
   transform: translateY(-1px);
 }
 
@@ -280,12 +268,47 @@ pre {
   position: relative;
   z-index: 1;
   width: 100%;
+  min-height: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.preview-stage-shell {
+  width: min(100%, 1180px);
+  min-height: 0;
+  padding: 0;
+  border: 1px solid rgba(217, 119, 6, 0.12);
+  border-radius: 30px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.58), rgba(255, 250, 240, 0.62)),
+    rgba(255, 255, 255, 0.4);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.65),
+    0 14px 36px rgba(148, 163, 184, 0.08);
+}
+
+.preview-stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1.18fr) minmax(360px, 0.92fr);
+  gap: 12px;
+  width: 100%;
   height: 100%;
+  min-height: 0;
+}
+
+.preview-image-shell {
+  position: relative;
+  min-width: 0;
   min-height: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 18px 18px;
+  padding: 10px;
+  border-radius: 26px;
+  border: 1px solid rgba(217, 119, 6, 0.1);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 249, 240, 0.88));
 }
 
 #preview-image {
@@ -295,68 +318,56 @@ pre {
   filter: drop-shadow(0 18px 34px rgba(15, 23, 42, 0.12));
 }
 
-.inspector-pane {
-  display: grid;
-  grid-template-rows: minmax(0, 1fr);
-  padding: 20px;
-}
-
 .raw-json-panel {
-  border-radius: 24px;
-  border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.36);
+  border-radius: 26px;
+  border: 1px solid rgba(217, 119, 6, 0.1);
+  background: linear-gradient(180deg, rgba(255, 252, 246, 0.92), rgba(255, 248, 238, 0.9));
   padding: 16px;
 }
 
 .raw-json-panel {
   min-height: 0;
-  display: grid;
-  grid-template-rows: auto minmax(0, 1fr);
-}
-
-.raw-json-head {
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--line);
+  display: flex;
 }
 
 #json-panel {
   margin: 0;
+  flex: 1;
   min-height: 0;
   overflow: auto;
-  padding-top: 14px;
   white-space: pre-wrap;
   word-break: break-word;
   font-family: "SFMono-Regular", "Cascadia Code", "JetBrains Mono", monospace;
   font-size: 12px;
   line-height: 1.72;
   color: color-mix(in srgb, var(--text) 82%, #000000 18%);
-  background: var(--json-code-bg);
-  border-radius: 16px;
-  padding: 14px;
+  background: rgba(255, 255, 255, 0.62);
+  border: 1px solid rgba(217, 119, 6, 0.08);
+  border-radius: 18px;
+  padding: 16px;
 }
 
 @media (max-width: 1100px) {
-  .split-shell {
-    width: min(calc(100vw - 36px), 100%);
-    grid-template-columns: minmax(0, 1fr) minmax(300px, 34vw);
-  }
-
-  .preview-topbar {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "badge"
-      "actions";
-    gap: 12px;
+  .preview-frame {
+    width: 100%;
   }
 
   .preview-toolbar {
-    justify-content: start;
+    justify-content: center;
+  }
+
+  .preview-stage {
+    grid-template-columns: minmax(0, 1.06fr) minmax(320px, 0.94fr);
   }
 }
 
-@media (max-width: 900px) {
-  .preview-date {
-    font-size: clamp(24px, 3.2vw, 34px);
+@media (max-width: 980px) {
+  .preview-stage-shell {
+    width: 100%;
+  }
+
+  .preview-stage {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -369,32 +380,23 @@ pre {
     min-height: 100dvh;
     height: auto;
     grid-template-columns: 1fr;
-    grid-template-rows: minmax(0, 1fr) minmax(260px, auto);
+    padding: 12px 0;
   }
 
   .preview-pane {
     min-height: 58dvh;
   }
 
-  .preview-frame {
-    min-height: 0;
-    padding: 14px;
-    gap: 10px;
-  }
-
   .preview-topbar {
-    gap: 8px;
+    padding: 14px 14px 0;
   }
 
   .preview-toolbar {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     justify-content: stretch;
     gap: 8px;
-  }
-
-  .preview-date {
-    font-size: 22px;
-    line-height: 1.1;
+    width: min(100%, 100%);
+    border-radius: 22px;
   }
 
   .preview-badge,
@@ -419,7 +421,22 @@ pre {
     padding: 0;
   }
 
-  .inspector-pane {
+  .preview-stage {
+    gap: 12px;
+  }
+
+  .preview-stage-shell {
+    padding: 0;
+    border-radius: 24px;
+  }
+
+  .preview-image-shell {
+    min-height: 42dvh;
+    border-radius: 20px;
+  }
+
+  .raw-json-panel {
     min-height: clamp(220px, 30dvh, 280px);
+    border-radius: 20px;
   }
 }

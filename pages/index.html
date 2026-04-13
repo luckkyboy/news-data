@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>每日简报预览</title>
+    <title>每日简报-每日新闻</title>
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body data-theme="cool">
@@ -11,11 +11,6 @@
       <section class="preview-pane">
         <div class="preview-frame">
           <div class="preview-topbar">
-            <div class="preview-badge-block">
-              <p class="preview-badge">NEWS DATA</p>
-              <h1 id="stage-date-label" class="preview-date">-</h1>
-            </div>
-
             <div class="preview-toolbar">
               <button id="prev-button" type="button">上一天</button>
               <button id="next-button" type="button">下一天</button>
@@ -25,19 +20,21 @@
           </div>
 
           <div class="preview-canvas">
-            <img id="preview-image" alt="预览图片" />
+            <div class="preview-stage-shell">
+              <div class="preview-stage">
+              <div class="preview-image-shell">
+                <img id="preview-image" alt="预览图片" />
+              </div>
+
+              <section class="raw-json-panel">
+                <pre id="json-panel"></pre>
+              </section>
+            </div>
           </div>
+          </div>
+
         </div>
       </section>
-
-      <aside class="inspector-pane">
-        <section class="raw-json-panel">
-          <div class="raw-json-head">
-            <p class="eyebrow">Raw Payload</p>
-          </div>
-          <pre id="json-panel"></pre>
-        </section>
-      </aside>
     </main>
     <script src="./app.js" type="module"></script>
   </body>
